@@ -1,215 +1,332 @@
 ﻿{
+  "questionMaxScore": 5,
+  "responseScale": 8,
+  "teamScale": 8,
+  "styles": [
+    {
+      "id": "A",
+      "label": "纪律控场型",
+      "description": "你更偏爱纪律、稳扎稳打、默认控场和战术执行，喜欢看一支队伍几乎不白给地赢下比赛。",
+      "profile": { "discipline": 8, "weapon": 2, "breakthrough": -8, "setup": 7, "tactics": 8, "clutch": 5, "economy": 6 }
+    },
+    {
+      "id": "B",
+      "label": "个人突破型",
+      "description": "你更吃明星个人能力、强行突破和正面火力，喜欢关键先生站出来接管比赛。",
+      "profile": { "discipline": -8, "weapon": -7, "breakthrough": 7, "setup": -2, "tactics": -8, "clutch": -2, "economy": -6 }
+    },
+    {
+      "id": "C",
+      "label": "AWP 控图型",
+      "description": "你偏爱狙击手控场、慢节奏拿信息和稳控地图，享受一枪定音的压迫感。",
+      "profile": { "discipline": 3, "weapon": 8, "breakthrough": -5, "setup": 6, "tactics": 5, "clutch": 6, "economy": 4 }
+    },
+    {
+      "id": "D",
+      "label": "非常规冲击型",
+      "description": "你喜欢灵活变招、快攻假打和非常规思路，越敢冲越有观赏性。",
+      "profile": { "discipline": -4, "weapon": -4, "breakthrough": 8, "setup": -8, "tactics": -5, "clutch": -1, "economy": -4 }
+    }
+  ],
   "teams": [
     {
-      "id": "astralis",
-      "label": "Astralis",
-      "description": "极端纪律型，喜欢稳定战术、不冒险。",
-      "profile": { "discipline": 5, "weapon": -3, "breakthrough": -5, "setup": -2, "tactics": 5, "temperature": 2 }
+      "id": "vitality",
+      "label": "Team Vitality（小蜜蜂，法国）",
+      "group": "体系稳控组",
+      "description": "稳定双核型，核心狙击和自由人收束能力都极强，默认、残局和执行都很顶。",
+      "profile": { "discipline": 8, "weapon": 8, "breakthrough": -3, "setup": 7, "tactics": 8, "clutch": 8, "economy": 6 }
     },
     {
       "id": "faze",
-      "label": "FaZe Clan",
-      "description": "个人英雄主义强，打出高风险高回报的快攻。",
-      "profile": { "discipline": -5, "weapon": 4, "breakthrough": 5, "setup": 3, "tactics": -5, "temperature": 3 }
-    },
-    {
-      "id": "navi",
-      "label": "Natus Vincere",
-      "description": "AWP 风格鲜明，稳中带点爆发。",
-      "profile": { "discipline": 1, "weapon": 5, "breakthrough": 1, "setup": 0, "tactics": 3, "temperature": 3 }
-    },
-    {
-      "id": "liquid",
-      "label": "Team Liquid",
-      "description": "以战术执行和团队协作为主，偏向常规打法。",
-      "profile": { "discipline": 3, "weapon": 0, "breakthrough": -1, "setup": -1, "tactics": 4, "temperature": 4 }
+      "label": "FaZe Clan（FaZe，国际）",
+      "group": "巨星爆发组",
+      "description": "老将巨星型，更依赖明星硬解和关键局大心脏，而不是稳定的狙击体系。",
+      "profile": { "discipline": -2, "weapon": -5, "breakthrough": 6, "setup": -1, "tactics": -3, "clutch": 6, "economy": -1 }
     },
     {
       "id": "falcons",
-      "label": "Falcons",
-      "description": "爆发型冒险队，偏向非常规、冲击力与个人英雄。",
-      "profile": { "discipline": -4, "weapon": 2, "breakthrough": 5, "setup": 5, "tactics": -3, "temperature": 2 }
-    },
-    {
-      "id": "g2",
-      "label": "G2 Esports",
-      "description": "大胆激进，喜欢非常规变阵和火力碾压。",
-      "profile": { "discipline": -4, "weapon": 3, "breakthrough": 4, "setup": 5, "tactics": -5, "temperature": 1 }
-    },
-    {
-      "id": "spirit",
-      "label": "Team Spirit",
-      "description": "稳定执行型，偏向纪律和稳扎稳打。",
-      "profile": { "discipline": 4, "weapon": -1, "breakthrough": -3, "setup": 0, "tactics": 3, "temperature": 5 }
+      "label": "Falcons（猎鹰，国际）",
+      "group": "巨星爆发组",
+      "description": "三核明星型，顶级个人能力和爆弹火力非常夸张，明星味在强队里数一数二。",
+      "profile": { "discipline": -1, "weapon": 3, "breakthrough": 8, "setup": -3, "tactics": -5, "clutch": 2, "economy": -1 }
     },
     {
       "id": "furia",
-      "label": "FURIA",
-      "description": "进攻节奏强烈，喜欢高风险火力推进。",
-      "profile": { "discipline": -3, "weapon": 2, "breakthrough": 5, "setup": 3, "tactics": -4, "temperature": 4 }
+      "label": "FURIA（黑豹，巴西）",
+      "group": "冲击压制组",
+      "description": "观赏性极强的侵略队，前压、狙击和疯狗突破并存，节奏很凶但并非纯乱打。",
+      "profile": { "discipline": -3, "weapon": 1, "breakthrough": 8, "setup": -8, "tactics": -4, "clutch": -3, "economy": -4 }
     },
     {
-      "id": "mouz",
-      "label": "MOUZ",
-      "description": "常规型战术队，擅长节奏控制与 default。",
-      "profile": { "discipline": 2, "weapon": 0, "breakthrough": -2, "setup": 5, "tactics": 4, "temperature": 3 }
+      "id": "spirit",
+      "label": "Team Spirit（绿龙，俄罗斯）",
+      "group": "均衡爆发组",
+      "description": "超新星火力型，稳定步枪压制配合狙击兜底，强在火力硬度和细腻度并存。",
+      "profile": { "discipline": 1, "weapon": -1, "breakthrough": 5, "setup": -2, "tactics": 4, "clutch": 4, "economy": 2 }
     },
     {
-      "id": "tyloo",
-      "label": "TYLOO",
-      "description": "敢拼型团队，偏向非常规与冲击突破。",
-      "profile": { "discipline": -4, "weapon": 0, "breakthrough": 5, "setup": 5, "tactics": 1, "temperature": 4 }
+      "id": "parivision",
+      "label": "PARIVISION（PV，独联体）",
+      "group": "体系稳控组",
+      "description": "极致运营型，最鲜明的是经济管理、默认节奏和战术解读，越打越窒息。",
+      "profile": { "discipline": 8, "weapon": 5, "breakthrough": -8, "setup": 8, "tactics": 8, "clutch": 7, "economy": 8 }
+    },
+    {
+      "id": "navi",
+      "label": "NAVI（乌克兰 / 独联体）",
+      "group": "体系稳控组",
+      "description": "默认开局和中后段执行都很强，既有纪律体系，也保留顶级突破和偶发灵感。",
+      "profile": { "discipline": 7, "weapon": 6, "breakthrough": -2, "setup": 6, "tactics": 7, "clutch": 5, "economy": 5 }
+    },
+    {
+      "id": "astralis",
+      "label": "Astralis（A 队，丹麦）",
+      "group": "体系稳控组",
+      "description": "老派体系代表，重视结构、站位和控场，也更擅长把明星塞进体系里。",
+      "profile": { "discipline": 8, "weapon": 3, "breakthrough": -8, "setup": 8, "tactics": 8, "clutch": 4, "economy": 7 }
     },
     {
       "id": "mongolz",
-      "label": "Mongolz",
-      "description": "坚决防守型，强调纪律、阵型和稳攻。",
-      "profile": { "discipline": 5, "weapon": -4, "breakthrough": -5, "setup": 2, "tactics": 5, "temperature": 5 }
+      "label": "The MongolZ（蒙古）",
+      "group": "冲击压制组",
+      "description": "青春冲击型，整体年轻、节奏快，既有硬枪也有高上限狙击，观感非常热血。",
+      "profile": { "discipline": -1, "weapon": 1, "breakthrough": 8, "setup": -5, "tactics": -4, "clutch": -1, "economy": -2 }
+    },
+    {
+      "id": "g2",
+      "label": "G2 Esports（G2，国际）",
+      "group": "均衡爆发组",
+      "description": "强火力配合型，正面枪线很硬，加上教练调教后整体比外界印象更有框架。",
+      "profile": { "discipline": 1, "weapon": -4, "breakthrough": 4, "setup": 0, "tactics": 2, "clutch": 0, "economy": 0 }
     }
   ],
   "dimensions": [
     { "id": "discipline", "left": "纪律性", "right": "个人英雄主义" },
-    { "id": "weapon", "left": "AWP", "right": "步枪" },
+    { "id": "weapon", "left": "AWP 偏好", "right": "步枪偏好" },
     { "id": "breakthrough", "left": "冒险突破", "right": "稳扎稳打" },
-    { "id": "setup", "left": "默认", "right": "非常规" },
-    { "id": "tactics", "left": "战术", "right": "火力" },
-    { "id": "temperature", "left": "队内氛围高", "right": "队内氛围低" }
+    { "id": "setup", "left": "默认控场", "right": "非常规打法" },
+    { "id": "tactics", "left": "战术体系", "right": "纯火力压制" },
+    { "id": "clutch", "left": "残局处理", "right": "滚雪球压制" },
+    { "id": "economy", "left": "经济运营", "right": "强起赌博" }
   ],
   "questions": [
     {
-      "title": "你比赛里更想扮演哪种角色？",
+      "title": "1. 你更喜欢一支队伍的核心是？",
+      "weight": 1.1,
       "options": [
-        { "label": "冷静拆点，控制全局。", "scores": { "discipline": 5, "weapon": -3, "breakthrough": -5, "setup": -2, "tactics": 5 } },
-        { "label": "冲点爆发，打一波结束。", "scores": { "discipline": -5, "weapon": 2, "breakthrough": 5, "setup": 4, "tactics": -4 } },
-        { "label": "支援队友，保证进攻节奏。", "scores": { "discipline": 3, "weapon": -1, "breakthrough": -2, "setup": 1, "tactics": 3 } },
-        { "label": "随机应变，打对手节奏。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 2, "setup": 3, "tactics": 2 } }
+        { "label": "团队纪律、统一执行", "style": "A", "scores": { "discipline": 5, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 4, "clutch": 1, "economy": 1 } },
+        { "label": "明星个人能力、关键先生", "style": "B", "scores": { "discipline": -5, "weapon": -1, "breakthrough": 2, "setup": -1, "tactics": -2, "clutch": -1, "economy": -1 } },
+        { "label": "全能步枪手", "style": "B", "scores": { "discipline": 1, "weapon": -5, "breakthrough": 1, "setup": 0, "tactics": 1, "clutch": 1, "economy": 0 } },
+        { "label": "顶级狙击手", "style": "C", "scores": { "discipline": 0, "weapon": 5, "breakthrough": 0, "setup": 1, "tactics": 1, "clutch": 2, "economy": 0 } }
       ]
     },
     {
-      "title": "一局输了你最先会怎么做？",
+      "title": "2. 面对 1v3 残局，你更欣赏哪种处理方式？",
+      "weight": 1.25,
       "options": [
-        { "label": "先看战术板复盘。", "scores": { "discipline": 5, "weapon": -2, "breakthrough": -4, "setup": -1, "tactics": 4 } },
-        { "label": "下一局继续打，别停。", "scores": { "discipline": -4, "weapon": 1, "breakthrough": 5, "setup": 3, "tactics": -2 } },
-        { "label": "变阵找对手弱点。", "scores": { "discipline": 2, "weapon": -1, "breakthrough": 1, "setup": 5, "tactics": 3 } },
-        { "label": "把失误扛给自己。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 0, "tactics": 2 } }
+        { "label": "果断保枪", "style": "A", "scores": { "discipline": 3, "weapon": 0, "breakthrough": -5, "setup": 1, "tactics": 3, "clutch": 2, "economy": 5 } },
+        { "label": "直接前顶强杀、秀个人操作", "style": "B", "scores": { "discipline": -3, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": -2, "clutch": -2, "economy": -2 } },
+        { "label": "用道具和脚步慢慢清点", "style": "A", "scores": { "discipline": 2, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 4, "clutch": 5, "economy": 1 } },
+        { "label": "大狙架死关键位置三枪定音", "style": "C", "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 1, "tactics": 2, "clutch": 4, "economy": 0 } }
       ]
     },
     {
-      "title": "你更喜欢哪种比赛节奏？",
+      "title": "3. 进攻时你更倾向？",
+      "weight": 1.3,
       "options": [
-        { "label": "快攻打爆对手。", "scores": { "discipline": -5, "weapon": -1, "breakthrough": 5, "setup": 4, "tactics": -5 } },
-        { "label": "慢拆点收集信息。", "scores": { "discipline": 5, "weapon": -3, "breakthrough": -5, "setup": -1, "tactics": 5 } },
-        { "label": "掌控节奏随时爆发。", "scores": { "discipline": 3, "weapon": 0, "breakthrough": 1, "setup": 2, "tactics": 3 } },
-        { "label": "根据对手动态调整。", "scores": { "discipline": 0, "weapon": 1, "breakthrough": 3, "setup": 4, "tactics": 0 } }
+        { "label": "慢摸默认、控图拿信息", "style": "A", "scores": { "discipline": 1, "weapon": 0, "breakthrough": -4, "setup": 5, "tactics": 3, "clutch": 1, "economy": 2 } },
+        { "label": "快抢前压、主动找架打", "style": "B", "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -2, "tactics": -2, "clutch": -2, "economy": -1 } },
+        { "label": "爆弹一波冲点", "style": "B", "scores": { "discipline": -1, "weapon": -1, "breakthrough": 4, "setup": -1, "tactics": 1, "clutch": -1, "economy": -1 } },
+        { "label": "分兵拉扯、多点佯攻", "style": "D", "scores": { "discipline": 0, "weapon": 0, "breakthrough": 1, "setup": -4, "tactics": 4, "clutch": 1, "economy": 1 } }
       ]
     },
     {
-      "title": "你觉得最燃的一局是什么？",
+      "title": "4. 你更认可的胜利方式是？",
+      "weight": 1.2,
       "options": [
-        { "label": "Carry 神操作。", "scores": { "discipline": -4, "weapon": 5, "breakthrough": 5, "setup": 2, "tactics": -4 } },
-        { "label": "完美战术破对手。", "scores": { "discipline": 5, "weapon": -2, "breakthrough": -4, "setup": -1, "tactics": 5 } },
-        { "label": "关键救场稳住场面。", "scores": { "discipline": 4, "weapon": 1, "breakthrough": -1, "setup": 0, "tactics": 3 } },
-        { "label": "default 顺利收官。", "scores": { "discipline": 3, "weapon": 0, "breakthrough": -2, "setup": 5, "tactics": 4 } }
+        { "label": "战术到位、对手完全被牵着走", "style": "A", "scores": { "discipline": 3, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 5, "clutch": 2, "economy": 1 } },
+        { "label": "枪法碾压、正面硬刚打赢", "style": "B", "scores": { "discipline": -2, "weapon": -2, "breakthrough": 3, "setup": -1, "tactics": -5, "clutch": -2, "economy": -1 } },
+        { "label": "狙击手控场、限制对手走位", "style": "C", "scores": { "discipline": 1, "weapon": 5, "breakthrough": -1, "setup": 2, "tactics": 2, "clutch": 2, "economy": 0 } },
+        { "label": "团队纪律拉满、零失误赢下", "style": "A", "scores": { "discipline": 5, "weapon": 0, "breakthrough": -2, "setup": 1, "tactics": 4, "clutch": 3, "economy": 1 } }
       ]
     },
     {
-      "title": "你的比赛决策更像哪种？",
+      "title": "5. 防守时你更喜欢？",
+      "weight": 1.15,
       "options": [
-        { "label": "先喊人头冲点。", "scores": { "discipline": -5, "weapon": -1, "breakthrough": 5, "setup": 4, "tactics": -5 } },
-        { "label": "开烟布阵稳节奏。", "scores": { "discipline": 4, "weapon": -2, "breakthrough": -2, "setup": 2, "tactics": 4 } },
-        { "label": "守阵地等对手先动。", "scores": { "discipline": 5, "weapon": -1, "breakthrough": -5, "setup": -1, "tactics": 4 } },
-        { "label": "配合队友一起上。", "scores": { "discipline": 0, "weapon": 0, "breakthrough": 2, "setup": 3, "tactics": 1 } }
+        { "label": "稳守点位、不轻易前压", "style": "A", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -4, "setup": 3, "tactics": 2, "clutch": 1, "economy": 2 } },
+        { "label": "主动前顶、打乱对手进攻", "style": "D", "scores": { "discipline": -3, "weapon": -1, "breakthrough": 5, "setup": -4, "tactics": -1, "clutch": -2, "economy": -1 } },
+        { "label": "大狙守长管、掌控大区域", "style": "C", "scores": { "discipline": 1, "weapon": 5, "breakthrough": -2, "setup": 3, "tactics": 2, "clutch": 2, "economy": 1 } },
+        { "label": "多人联动、交叉火力防守", "style": "A", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 1, "tactics": 4, "clutch": 2, "economy": 1 } }
       ]
     },
     {
-      "title": "你喜欢什么观赛方式？",
+      "title": "6. 面对强图，你希望队伍？",
+      "weight": 1.15,
       "options": [
-        { "label": "弹幕氛围，现场感强。", "scores": { "discipline": -4, "weapon": 1, "breakthrough": 5, "setup": 3, "tactics": -3 } },
-        { "label": "安静分析战术。", "scores": { "discipline": 5, "weapon": -2, "breakthrough": -4, "setup": -1, "tactics": 5 } },
-        { "label": "看操作精彩瞬间。", "scores": { "discipline": -3, "weapon": 5, "breakthrough": 4, "setup": 1, "tactics": -2 } },
-        { "label": "随便看，不仔细。", "scores": { "discipline": 0, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 0 } }
+        { "label": "用成熟战术体系稳拿", "style": "A", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -3, "setup": 3, "tactics": 5, "clutch": 2, "economy": 2 } },
+        { "label": "靠个人状态硬实力碾压", "style": "B", "scores": { "discipline": -4, "weapon": -2, "breakthrough": 4, "setup": -1, "tactics": -4, "clutch": -2, "economy": -2 } },
+        { "label": "慢打默认、经济拉满再打", "style": "C", "scores": { "discipline": 3, "weapon": 1, "breakthrough": -4, "setup": 5, "tactics": 3, "clutch": 2, "economy": 5 } },
+        { "label": "各种快攻、假打、非常规搞心态", "style": "D", "scores": { "discipline": -1, "weapon": 0, "breakthrough": 3, "setup": -5, "tactics": 2, "clutch": -1, "economy": -2 } }
       ]
     },
     {
-      "title": "你更像哪种选手定位？",
+      "title": "7. 你更偏爱哪种核心选手？",
+      "weight": 1,
       "options": [
-        { "label": "稳控节奏的指挥官。", "scores": { "discipline": 5, "weapon": -3, "breakthrough": -4, "setup": -1, "tactics": 4 } },
-        { "label": "爆发型 Carry。", "scores": { "discipline": -5, "weapon": 4, "breakthrough": 5, "setup": 3, "tactics": -4 } },
-        { "label": "翻盘型稳打选手。", "scores": { "discipline": 2, "weapon": -1, "breakthrough": 0, "setup": 3, "tactics": 2 } },
-        { "label": "战术多变的策略家。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": 2, "setup": 5, "tactics": 4 } }
+        { "label": "指挥型、战术大脑", "style": "A", "scores": { "discipline": 5, "weapon": 0, "breakthrough": -2, "setup": 1, "tactics": 4, "clutch": 1, "economy": 2 } },
+        { "label": "突破手、敢打敢冲", "style": "B", "scores": { "discipline": -3, "weapon": -3, "breakthrough": 5, "setup": -2, "tactics": -2, "clutch": -2, "economy": -1 } },
+        { "label": "狙击手、大狙核心", "style": "C", "scores": { "discipline": 0, "weapon": 5, "breakthrough": 0, "setup": 1, "tactics": 2, "clutch": 2, "economy": 0 } },
+        { "label": "全能步枪、稳定兜底", "style": "B", "scores": { "discipline": 2, "weapon": -4, "breakthrough": -1, "setup": 0, "tactics": 2, "clutch": 3, "economy": 1 } }
       ]
     },
     {
-      "title": "被队友夸你 carry 了，你会怎么回应？",
+      "title": "8. 经济局时你更欣赏？",
+      "weight": 1.25,
       "options": [
-        { "label": "继续稳住，不要飘。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 1, "tactics": 3 } },
-        { "label": "我就是这么强。", "scores": { "discipline": -4, "weapon": 4, "breakthrough": 4, "setup": 1, "tactics": -3 } },
-        { "label": "团队一起打才稳。", "scores": { "discipline": 5, "weapon": -2, "breakthrough": -3, "setup": 2, "tactics": 4 } },
-        { "label": "别夸了，继续打。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 1 } }
+        { "label": "保枪等翻盘、稳扎稳打", "style": "A", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -5, "setup": 1, "tactics": 2, "clutch": 1, "economy": 5 } },
+        { "label": "全起刚枪、搏一把奇迹", "style": "B", "scores": { "discipline": -3, "weapon": -2, "breakthrough": 5, "setup": -1, "tactics": -4, "clutch": -1, "economy": -5 } },
+        { "label": "小枪默认、慢慢拿分", "style": "C", "scores": { "discipline": 2, "weapon": 0, "breakthrough": -3, "setup": 4, "tactics": 3, "clutch": 1, "economy": 4 } },
+        { "label": "非常规偷人、快攻抢分", "style": "D", "scores": { "discipline": -1, "weapon": -1, "breakthrough": 4, "setup": -5, "tactics": -1, "clutch": -1, "economy": -3 } }
       ]
     },
     {
-      "title": "你最喜欢哪种直播间梗？",
+      "title": "9. 你觉得强队最关键的是？",
+      "weight": 1.25,
       "options": [
-        { "label": "这波 danking，直接暴走。", "scores": { "discipline": -4, "weapon": 0, "breakthrough": 5, "setup": 3, "tactics": -2 } },
-        { "label": "259、玩机器这种激进。", "scores": { "discipline": -4, "weapon": 2, "breakthrough": 4, "setup": 4, "tactics": -3 } },
-        { "label": "互怼战术分析。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": -1, "setup": 0, "tactics": 0 } },
-        { "label": "稳扎稳打翻盘。", "scores": { "discipline": 4, "weapon": 1, "breakthrough": -4, "setup": 1, "tactics": 3 } }
+        { "label": "极致纪律与执行力", "style": "A", "scores": { "discipline": 5, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 3, "clutch": 1, "economy": 1 } },
+        { "label": "顶尖个人能力与上限", "style": "B", "scores": { "discipline": -5, "weapon": -1, "breakthrough": 3, "setup": -1, "tactics": -1, "clutch": -1, "economy": -1 } },
+        { "label": "精密战术与道具配合", "style": "A", "scores": { "discipline": 3, "weapon": 0, "breakthrough": -1, "setup": 3, "tactics": 5, "clutch": 1, "economy": 1 } },
+        { "label": "刚猛火力与正面胜率", "style": "B", "scores": { "discipline": -2, "weapon": -2, "breakthrough": 3, "setup": -1, "tactics": -5, "clutch": -2, "economy": -1 } }
       ]
     },
     {
-      "title": "你最怕比赛中出现什么？",
+      "title": "10. 地图控制上你偏好？",
+      "weight": 1.1,
       "options": [
-        { "label": "被对手一波速推。", "scores": { "discipline": 4, "weapon": -2, "breakthrough": -5, "setup": 1, "tactics": 4 } },
-        { "label": "自己单打团灭。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 1, "tactics": 4 } },
-        { "label": "被主播嘲讽操作。", "scores": { "discipline": -3, "weapon": 0, "breakthrough": 1, "setup": 0, "tactics": -3 } },
-        { "label": "连输两局队友崩了。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 0 } }
+        { "label": "慢控全场、逐步压缩空间", "style": "A", "scores": { "discipline": 2, "weapon": 0, "breakthrough": -3, "setup": 5, "tactics": 3, "clutch": 1, "economy": 2 } },
+        { "label": "抢关键位、直接肉搏", "style": "B", "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -2, "tactics": -2, "clutch": -2, "economy": -1 } },
+        { "label": "大狙控图、减少接触", "style": "C", "scores": { "discipline": 1, "weapon": 5, "breakthrough": -2, "setup": 3, "tactics": 2, "clutch": 2, "economy": 1 } },
+        { "label": "随机非常规、让对手猜不到", "style": "D", "scores": { "discipline": -1, "weapon": 0, "breakthrough": 3, "setup": -5, "tactics": 1, "clutch": -1, "economy": -1 } }
       ]
     },
     {
-      "title": "赛后你最想看什么内容？",
+      "title": "11. 你更喜欢进攻节奏是？",
+      "weight": 1.2,
       "options": [
-        { "label": "战术拆解，研究对手。", "scores": { "discipline": 5, "weapon": -2, "breakthrough": -4, "setup": 1, "tactics": 5 } },
-        { "label": "神仙操作慢放。", "scores": { "discipline": -4, "weapon": 5, "breakthrough": 4, "setup": 1, "tactics": -3 } },
-        { "label": "选手采访，了解心态。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 0 } },
-        { "label": "高光剪辑，直接爽。", "scores": { "discipline": -1, "weapon": 4, "breakthrough": 3, "setup": 0, "tactics": -2 } }
+        { "label": "稳健默认、不着急动手", "style": "A", "scores": { "discipline": 2, "weapon": 0, "breakthrough": -4, "setup": 5, "tactics": 3, "clutch": 1, "economy": 2 } },
+        { "label": "快节奏爆弹、不给对手反应", "style": "B", "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": 1, "clutch": -2, "economy": -2 } },
+        { "label": "多点拉扯、战术多变", "style": "D", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 1, "setup": -2, "tactics": 5, "clutch": 1, "economy": 1 } },
+        { "label": "单点硬冲、纯靠枪法", "style": "B", "scores": { "discipline": -3, "weapon": -2, "breakthrough": 5, "setup": -2, "tactics": -5, "clutch": -3, "economy": -2 } }
       ]
     },
     {
-      "title": "队友喊你冲点，你通常怎么做？",
+      "title": "12. 对狙击手的态度是？",
+      "weight": 1.25,
       "options": [
-        { "label": "直接冲，谁怕谁。", "scores": { "discipline": -5, "weapon": 0, "breakthrough": 5, "setup": 4, "tactics": -4 } },
-        { "label": "先探点再决定。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 4 } },
-        { "label": "稳住阵地，不要被带乱。", "scores": { "discipline": 5, "weapon": -2, "breakthrough": -4, "setup": 2, "tactics": 4 } },
-        { "label": "顺他，和队友一起上。", "scores": { "discipline": 0, "weapon": 0, "breakthrough": 2, "setup": 1, "tactics": 1 } }
+        { "label": "大狙是体系核心、必须围绕打", "style": "C", "scores": { "discipline": 1, "weapon": 5, "breakthrough": -1, "setup": 2, "tactics": 3, "clutch": 2, "economy": 1 } },
+        { "label": "步枪更灵活、团队更依赖步枪", "style": "B", "scores": { "discipline": -1, "weapon": -5, "breakthrough": 2, "setup": 0, "tactics": -1, "clutch": 0, "economy": -1 } },
+        { "label": "狙可以有，但不能太依赖", "style": "A", "scores": { "discipline": 1, "weapon": 2, "breakthrough": -1, "setup": 1, "tactics": 2, "clutch": 1, "economy": 1 } },
+        { "label": "有无狙无所谓，枪法硬就行", "style": "B", "scores": { "discipline": -2, "weapon": -3, "breakthrough": 2, "setup": -1, "tactics": -3, "clutch": -1, "economy": -1 } }
       ]
     },
     {
-      "title": "你认可哪种赛后总结方式？",
+      "title": "13. 逆风局你更相信？",
+      "weight": 1.3,
       "options": [
-        { "label": "回放复盘自己的失误。", "scores": { "discipline": 5, "weapon": -1, "breakthrough": -2, "setup": 1, "tactics": 4 } },
-        { "label": "看精彩片段提气。", "scores": { "discipline": -4, "weapon": 4, "breakthrough": 4, "setup": 0, "tactics": -3 } },
-        { "label": "和队友一起复盘。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 1, "tactics": 4 } },
-        { "label": "放松休息，不要钻牛角。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 0 } }
+        { "label": "稳住战术、按部就班打回来", "style": "A", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -3, "setup": 2, "tactics": 5, "clutch": 4, "economy": 2 } },
+        { "label": "明星站出来、个人能力翻盘", "style": "B", "scores": { "discipline": -5, "weapon": -1, "breakthrough": 4, "setup": -1, "tactics": -2, "clutch": 1, "economy": -2 } },
+        { "label": "稳守拖延、等经济优势", "style": "C", "scores": { "discipline": 3, "weapon": 1, "breakthrough": -5, "setup": 4, "tactics": 2, "clutch": 3, "economy": 5 } },
+        { "label": "疯狂变招、非常规出奇制胜", "style": "D", "scores": { "discipline": -1, "weapon": 0, "breakthrough": 4, "setup": -5, "tactics": 2, "clutch": -1, "economy": -2 } }
       ]
     },
     {
-      "title": "你赛前更倾向怎样准备？",
+      "title": "14. 你更吃哪种战队风格？",
+      "weight": 1.15,
       "options": [
-        { "label": "先看地图、研究战术。", "scores": { "discipline": 5, "weapon": -1, "breakthrough": -3, "setup": 2, "tactics": 4 } },
-        { "label": "先热身找手感。", "scores": { "discipline": 0, "weapon": 4, "breakthrough": 3, "setup": 0, "tactics": 2 } },
-        { "label": "听音乐放松，不紧张。", "scores": { "discipline": 2, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 0 } },
-        { "label": "直接上场，第一局就开打。", "scores": { "discipline": -3, "weapon": 2, "breakthrough": 5, "setup": 4, "tactics": -3 } }
+        { "label": "纪律严明、几乎不白给", "style": "A", "scores": { "discipline": 5, "weapon": 0, "breakthrough": -4, "setup": 3, "tactics": 4, "clutch": 2, "economy": 2 } },
+        { "label": "敢打敢拼、经常高光操作", "style": "B", "scores": { "discipline": -4, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": -2, "clutch": -1, "economy": -1 } },
+        { "label": "战术鬼才、套路层出不穷", "style": "D", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 1, "setup": -3, "tactics": 5, "clutch": 1, "economy": 1 } },
+        { "label": "枪男大队、正面很少输", "style": "B", "scores": { "discipline": -2, "weapon": -3, "breakthrough": 4, "setup": -1, "tactics": -5, "clutch": -2, "economy": -1 } }
       ]
     },
     {
-      "title": "如果队伍的元老越打越垃圾，你会怎么处理？",
+      "title": "15. 总体来说，你看比赛更享受？",
+      "weight": 0.9,
       "options": [
-        { "label": "转教练留队，保留面子。", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -2, "setup": 0, "tactics": 2, "temperature": 5 } },
-        { "label": "好聚好散，让他离队。", "scores": { "discipline": 2, "weapon": 0, "breakthrough": 0, "setup": 1, "tactics": 1, "temperature": 4 } },
-        { "label": "坚持留下，再给他机会。", "scores": { "discipline": 1, "weapon": 0, "breakthrough": 0, "setup": 0, "tactics": 0, "temperature": 3 } },
-        { "label": "直接宫掉，干脆利落。", "scores": { "discipline": -4, "weapon": 0, "breakthrough": 2, "setup": 1, "tactics": -1, "temperature": 1 } }
+        { "label": "严谨流畅的团队配合", "style": "A", "scores": { "discipline": 4, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 4, "clutch": 2, "economy": 1 } },
+        { "label": "个人秀与精彩刷屏", "style": "B", "scores": { "discipline": -4, "weapon": -2, "breakthrough": 4, "setup": -1, "tactics": -3, "clutch": -1, "economy": -1 } },
+        { "label": "慢节奏控场与心理博弈", "style": "C", "scores": { "discipline": 2, "weapon": 4, "breakthrough": -4, "setup": 4, "tactics": 4, "clutch": 4, "economy": 2 } },
+        { "label": "快节奏对枪与激情碰撞", "style": "D", "scores": { "discipline": -2, "weapon": -3, "breakthrough": 5, "setup": -3, "tactics": -4, "clutch": -2, "economy": -2 } }
+      ]
+    }
+  ],
+  "adaptive": {
+    "triggerGap": 0.05,
+    "poolSize": 4,
+    "maxQuestions": 3
+  },
+  "tiebreakers": [
+    {
+      "id": "elite-core-1",
+      "title": "如果是顶级强队的底牌，你更信哪一种？",
+      "targets": ["vitality", "navi", "astralis", "parivision"],
+      "weight": 1.4,
+      "options": [
+        { "label": "稳定核心狙配自由人收残局，后半段特别让人安心", "teamBonus": { "vitality": 7, "navi": 3 }, "scores": { "weapon": 3, "clutch": 5, "tactics": 1 } },
+        { "label": "道具协同和默认推进像机器一样稳定", "teamBonus": { "astralis": 7, "parivision": 4, "navi": 2 }, "scores": { "discipline": 3, "setup": 4, "tactics": 4 } },
+        { "label": "极致保枪与经济运营慢慢磨死对手", "teamBonus": { "parivision": 8, "astralis": 2 }, "scores": { "economy": 5, "clutch": 2, "breakthrough": -2 } },
+        { "label": "默认开局极强，但也会靠突破手突然提速接管", "teamBonus": { "navi": 7, "vitality": 2, "spirit": 1 }, "scores": { "discipline": 2, "tactics": 2, "clutch": 2 } }
+      ]
+    },
+    {
+      "id": "elite-core-2",
+      "title": "你更认可哪种稳定强队气质？",
+      "targets": ["vitality", "navi", "astralis", "parivision", "spirit"],
+      "weight": 1.2,
+      "options": [
+        { "label": "残局越到后面越让人放心", "teamBonus": { "vitality": 5, "parivision": 4, "navi": 3 }, "scores": { "clutch": 5, "discipline": 1 } },
+        { "label": "默认和中后期运营完全不着急", "teamBonus": { "parivision": 5, "astralis": 5, "vitality": 2 }, "scores": { "setup": 4, "economy": 4 } },
+        { "label": "团队框架很稳，但进攻仍有提速感", "teamBonus": { "spirit": 5, "navi": 3 }, "scores": { "breakthrough": 2, "tactics": 2 } },
+        { "label": "既有体系，也很依赖狙击位制造压迫", "teamBonus": { "vitality": 4, "navi": 4 }, "scores": { "weapon": 4, "discipline": 1 } }
+      ]
+    },
+    {
+      "id": "superteam-1",
+      "title": "同样是天赋队，你更喜欢哪种赢法？",
+      "targets": ["faze", "g2", "falcons"],
+      "weight": 1.35,
+      "options": [
+        { "label": "老将大心脏，关键局总有人站出来", "teamBonus": { "faze": 7, "g2": 1 }, "scores": { "clutch": 4, "breakthrough": 2 } },
+        { "label": "三大明星一起把正面火力直接堆满", "teamBonus": { "falcons": 8, "g2": 1 }, "scores": { "tactics": -3, "breakthrough": 4 } },
+        { "label": "火力很硬，同时整体被教练调得更成型", "teamBonus": { "g2": 8, "faze": 1 }, "scores": { "discipline": 2, "weapon": -2, "tactics": 2 } },
+        { "label": "我就喜欢巨星阵容的观赏性和压迫感", "teamBonus": { "faze": 4, "falcons": 4, "g2": 2 }, "scores": { "breakthrough": 2, "clutch": 1 } }
+      ]
+    },
+    {
+      "id": "aggro-pack-1",
+      "title": "如果都是凶队，你更吃哪种压迫？",
+      "targets": ["furia", "mongolz", "spirit", "falcons"],
+      "weight": 1.35,
+      "options": [
+        { "label": "前压撕图，狙击和疯狗突破一起制造观赏性", "teamBonus": { "furia": 8, "spirit": 1 }, "scores": { "setup": -5, "breakthrough": 4, "weapon": 1 } },
+        { "label": "年轻枪线拉满，节奏快，狙击位也很有上限", "teamBonus": { "mongolz": 8, "falcons": 1 }, "scores": { "weapon": 1, "breakthrough": 5 } },
+        { "label": "顶级步枪稳定输出，再配狙击位兜底", "teamBonus": { "spirit": 8, "falcons": 1 }, "scores": { "tactics": 3, "breakthrough": 2, "clutch": 2 } },
+        { "label": "爆弹一到，靠明星火力瞬间冲垮对手", "teamBonus": { "falcons": 7, "furia": 1 }, "scores": { "tactics": -4, "breakthrough": 4 } }
+      ]
+    },
+    {
+      "id": "macro-vs-chaos",
+      "title": "状态一般时，你更信哪种队伍能赢？",
+      "targets": ["parivision", "astralis", "vitality", "navi", "faze", "g2", "furia", "mongolz"],
+      "weight": 1.1,
+      "options": [
+        { "label": "靠默认、站位和经济管理慢慢收掉", "teamBonus": { "parivision": 5, "astralis": 5, "vitality": 2 }, "scores": { "economy": 5, "setup": 4, "discipline": 2 } },
+        { "label": "靠残局和关键先生接管后半段", "teamBonus": { "vitality": 5, "navi": 4, "faze": 3 }, "scores": { "clutch": 5, "weapon": 1 } },
+        { "label": "靠天赋硬解，突然一波给你冲烂", "teamBonus": { "g2": 4, "falcons": 4, "mongolz": 3, "furia": 2 }, "scores": { "breakthrough": 4, "tactics": -3 } },
+        { "label": "靠连续前压和变招把对手打懵", "teamBonus": { "furia": 5, "mongolz": 3, "spirit": 2 }, "scores": { "setup": -5, "breakthrough": 3 } }
       ]
     }
   ]
 }
+
