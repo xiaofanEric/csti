@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
+  <title>CS 主队问卷</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f1e6d2;
+      --card: #ffffff;
+      --card-alt: #f7efe2;
+=======
   <title>CS 战队风格偏好测试</title>
   <style>
     :root {
@@ -10,6 +19,7 @@
       --bg: #f8f2e8;
       --card: #ffffff;
       --card-alt: #fbf6ef;
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
       --text: #111827;
       --muted: #4b5563;
       --primary: #1f3a70;
@@ -256,8 +266,13 @@
   <main class="page">
     <header class="header">
       <div>
+<<<<<<< HEAD
+        <h1 class="title">CS 主队问卷</h1>
+        <p class="subtitle">根据你的选择判断你更像哪种队伍风格，配合直播间梗让问卷更有味道。</p>
+=======
         <h1 class="title">CS 主队偏好测试</h1>
         <p class="subtitle">15 道单选题，做完直接测出你更像哪支主流强队，以及你的观赛风格倾向。</p>
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
       </div>
       <div class="progress" aria-label="进度">
         <div class="progress-text" id="progressText">加载中…</div>
@@ -283,6 +298,8 @@
     let currentIndex = 0;
     let answers = [];
     let dimensionScores = {};
+<<<<<<< HEAD
+=======
     let optionOrders = [];
     let questionOrder = [];
     let hasStarted = false;
@@ -291,6 +308,7 @@
     let tiebreakerAnswers = [];
     let tiebreakerOptionOrders = [];
     let tiebreakerQuestionOrder = [];
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
 
     function createNode(html) {
       const template = document.createElement('template');
@@ -298,6 +316,23 @@
       return template.content.firstChild;
     }
 
+<<<<<<< HEAD
+    function renderQuestion() {
+      const question = surveyData.questions[currentIndex];
+      const total = surveyData.questions.length;
+      const completed = currentIndex;
+      const percent = Math.round(((completed) / total) * 100);
+      progressText.textContent = `第 ${currentIndex + 1} / ${total} 题`;
+      progressFill.style.width = `${percent}%`;
+
+      const optionsHtml = question.options.map((option, index) => {
+        const selected = answers[currentIndex] === index ? 'selected' : '';
+        return `<button type="button" class="option-button ${selected}" data-index="${index}">${option.label}</button>`;
+      }).join('');
+
+      contentArea.innerHTML = `
+        <h2 class="question-title">${question.title}</h2>
+=======
     function shuffleArray(items) {
       const array = [...items];
       for (let i = array.length - 1; i > 0; i -= 1) {
@@ -384,6 +419,7 @@
       contentArea.innerHTML = `
         ${helperText}
         <h2 class="question-title">${displayTitle}</h2>
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         <div class="options" id="optionsContainer">${optionsHtml}</div>
         <div class="actions">
           <button class="button secondary" id="prevButton" ${currentIndex === 0 ? 'disabled' : ''}>上一题</button>
@@ -394,7 +430,11 @@
       document.querySelectorAll('.option-button').forEach(button => {
         button.addEventListener('click', () => {
           const selectedIndex = Number(button.dataset.index);
+<<<<<<< HEAD
+          answers[currentIndex] = selectedIndex;
+=======
           activeSet.answersRef[questionIndex] = selectedIndex;
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
           renderQuestion();
         });
       });
@@ -407,6 +447,15 @@
       });
 
       document.getElementById('nextButton').addEventListener('click', () => {
+<<<<<<< HEAD
+        if (answers[currentIndex] == null) {
+          alert('请先选择一个选项再继续。');
+          return;
+        }
+        if (currentIndex < surveyData.questions.length - 1) {
+          currentIndex += 1;
+          renderQuestion();
+=======
         if (activeSet.answersRef[questionIndex] == null) {
           alert('请先选择一个选项再继续。');
           return;
@@ -416,6 +465,7 @@
           renderQuestion();
         } else if (currentPhase === 'base' && maybeStartTiebreakers()) {
           return;
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         } else {
           showResult();
         }
@@ -428,6 +478,24 @@
         return acc;
       }, {});
 
+<<<<<<< HEAD
+      surveyData.questions.forEach((question, questionIndex) => {
+        const answerIndex = answers[questionIndex];
+        if (answerIndex == null) return;
+        const optionScores = question.options[answerIndex].scores || {};
+        surveyData.dimensions.forEach(dimension => {
+          dimensionScores[dimension.id] += optionScores[dimension.id] || 0;
+        });
+      });
+    }
+
+    function normalizeScores() {
+      const maxPerQuestion = 5;
+      const totalPossible = surveyData.questions.length * maxPerQuestion;
+      return surveyData.dimensions.reduce((acc, dimension) => {
+        const rawValue = dimensionScores[dimension.id] || 0;
+        acc[dimension.id] = (rawValue / totalPossible) * 5;
+=======
       const scoreQuestionSet = (questions, answerSet) => {
         questions.forEach((question, questionIndex) => {
           const answerIndex = answerSet[questionIndex];
@@ -469,10 +537,16 @@
       return surveyData.dimensions.reduce((acc, dimension) => {
         const rawValue = dimensionScores[dimension.id] || 0;
         acc[dimension.id] = (rawValue / totalPossible) * responseScale;
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         return acc;
       }, {});
     }
 
+<<<<<<< HEAD
+    function calculateTeamMatches(userNormalized) {
+      return surveyData.teams.map(team => {
+        const profile = team.profile || {};
+=======
     function calculateTiebreakerTeamBonuses() {
       return tiebreakerQuestions.reduce((acc, question, questionIndex) => {
         const answerIndex = tiebreakerAnswers[questionIndex];
@@ -493,11 +567,19 @@
 
       return items.map(item => {
         const profile = item.profile || {};
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         const distance = surveyData.dimensions.reduce((acc, dimension) => {
           const userValue = userNormalized[dimension.id] || 0;
           const teamValue = profile[dimension.id] || 0;
           return acc + Math.abs(userValue - teamValue);
         }, 0);
+<<<<<<< HEAD
+        const similarity = Math.max(0, 1 - distance / (surveyData.dimensions.length * 10));
+        return { ...team, similarity, distance };
+      }).sort((a, b) => b.similarity - a.similarity);
+    }
+
+=======
         const adjustedDistance = Math.max(0, distance - (bonusMap[item.id] || 0));
         const similarity = Math.max(0, 1 - adjustedDistance / (surveyData.dimensions.length * maxDistancePerDimension));
         return { ...item, similarity, distance: adjustedDistance };
@@ -579,10 +661,17 @@
       return '低';
     }
 
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
     function showResult() {
       calculateScores();
       const userNormalized = normalizeScores();
       const teamMatches = calculateTeamMatches(userNormalized);
+<<<<<<< HEAD
+      const topMatch = teamMatches[0];
+
+      contentArea.innerHTML = `
+        <h2 class="question-title">你的倾向性结果</h2>
+=======
       const styleMatches = calculateStyleMatches(userNormalized);
       const topMatch = teamMatches[0];
       const dominantStyle = styleMatches[0];
@@ -593,6 +682,7 @@
 
       contentArea.innerHTML = `
         <h2 class="question-title">你的主队结果</h2>
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         <div class="results" id="resultsContainer"></div>
         <div class="actions">
           <button class="button secondary" id="restartButton">重新开始</button>
@@ -601,6 +691,14 @@
 
       const resultsContainer = document.getElementById('resultsContainer');
 
+<<<<<<< HEAD
+      if (topMatch) {
+        const matchCard = createNode(`
+          <div class="result-item">
+            <h3 class="result-title">最匹配的队伍：${topMatch.label}</h3>
+            <p class="result-description">${topMatch.description}</p>
+            <p class="result-description">匹配度：${Math.round(topMatch.similarity * 100)}%</p>
+=======
       if (topMatch || dominantStyle) {
         const matchCard = createNode(`
           <div class="result-item">
@@ -613,6 +711,7 @@
             <p class="result-description">风格倾向：${dominantStyle?.label || '综合型'}</p>
             ${tiebreakerQuestions.length ? '<p class="result-description">本次结果已启用加试题进一步区分接近战队。</p>' : ''}
             ${isCloseCall ? `<p class="result-description">你的结果也非常接近 ${secondMatch.label}（${Math.round(secondMatch.similarity * 100)}%），属于混合倾向。</p>` : ''}
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
           </div>
         `);
         resultsContainer.appendChild(matchCard);
@@ -620,7 +719,11 @@
 
       const candidateCard = createNode(`
         <div class="result-item">
+<<<<<<< HEAD
+          <h3 class="result-title">备选队伍</h3>
+=======
           <h3 class="result-title">其他接近主队</h3>
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
           <ul id="candidateList" style="margin:0;padding-left:18px;color:var(--muted);"></ul>
         </div>
       `);
@@ -628,13 +731,22 @@
       const candidateList = candidateCard.querySelector('#candidateList');
       teamMatches.slice(1, 4).forEach(team => {
         const item = document.createElement('li');
+<<<<<<< HEAD
+        item.textContent = `${team.label} · 匹配度 ${Math.round(team.similarity * 100)}%`;
+=======
         item.textContent = `${team.label} · 接近度 ${Math.round(team.similarity * 100)}%`;
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         candidateList.appendChild(item);
       });
 
       surveyData.dimensions.filter(dimension => dimension.id !== 'temperature').forEach(dimension => {
+<<<<<<< HEAD
+        const maxPerQuestion = 5;
+        const totalPossible = surveyData.questions.length * maxPerQuestion;
+=======
         const maxPerQuestion = surveyData.questionMaxScore || 5;
         const totalPossible = getTotalQuestionWeight() * maxPerQuestion;
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
         const rawValue = dimensionScores[dimension.id] || 0;
         const normalized = Math.max(-totalPossible, Math.min(totalPossible, rawValue));
         const valueText = normalized === 0 ? '中庸' : normalized > 0 ? `偏向 ${dimension.left}` : `偏向 ${dimension.right}`;
@@ -659,6 +771,11 @@
       });
 
       document.getElementById('restartButton').addEventListener('click', () => {
+<<<<<<< HEAD
+        currentIndex = 0;
+        answers = new Array(surveyData.questions.length).fill(null);
+        renderQuestion();
+=======
         hasStarted = false;
         currentPhase = 'base';
         currentIndex = 0;
@@ -670,6 +787,7 @@
         questionOrder = [];
         optionOrders = [];
         renderStartScreen();
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
       });
 
       progressText.textContent = '完成问卷';
@@ -697,6 +815,10 @@
         if (!surveyData.questions || !surveyData.teams) {
           throw new Error('survey.json 内容格式不正确。');
         }
+<<<<<<< HEAD
+        answers = new Array(surveyData.questions.length).fill(null);
+        renderQuestion();
+=======
         currentPhase = 'base';
         answers = new Array(surveyData.questions.length).fill(null);
         tiebreakerQuestions = [];
@@ -706,6 +828,7 @@
         questionOrder = [];
         optionOrders = [];
         renderStartScreen();
+>>>>>>> 1d6a147 (更新 README.md，添加项目介绍、功能特点、运行方式及自定义说明)
       } catch (error) {
         console.error(error);
         showLoadError(error.message || '未知错误');
