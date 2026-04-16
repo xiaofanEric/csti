@@ -257,7 +257,7 @@
     <header class="header">
       <div>
         <h1 class="title">CS 主队偏好测试</h1>
-        <p class="subtitle">15 道单选题，做完直接测出你更像哪支主流强队，以及你的观赛风格倾向。</p>
+        <p class="subtitle">13 道单选题，做完直接测出你更像哪支主流强队，以及你的观赛风格倾向。</p>
       </div>
       <div class="progress" aria-label="进度">
         <div class="progress-text" id="progressText">加载中…</div>
@@ -338,7 +338,7 @@
       progressFill.style.width = '0%';
       contentArea.innerHTML = `
         <h2 class="question-title">欢迎来到 CS 主队测试</h2>
-        <p class="subtitle" style="margin:0 0 20px;max-width:none;">通过 15 道题和可能出现的少量加试题，测出你最接近的 CS 强队风格。</p>
+        <p class="subtitle" style="margin:0 0 20px;max-width:none;">通过 13 道题和可能出现的少量加试题，测出你最接近的 CS 强队风格。</p>
         <div class="actions" style="justify-content:flex-start;">
           <button class="button" id="startSurveyButton">开始测试</button>
         </div>
@@ -473,17 +473,24 @@
       }, {});
     }
 
-    function calculateTiebreakerTeamBonuses() {
-      return tiebreakerQuestions.reduce((acc, question, questionIndex) => {
-        const answerIndex = tiebreakerAnswers[questionIndex];
-        if (answerIndex == null) return acc;
-        const option = question.options[answerIndex];
-        const weight = question.weight || 1;
-        Object.entries(option.teamBonus || {}).forEach(([teamId, bonus]) => {
-          acc[teamId] = (acc[teamId] || 0) + bonus * weight;
+    function calculateTeamBonuses() {
+      const addBonuses = (acc, questions, answerSet) => {
+        questions.forEach((question, questionIndex) => {
+          const answerIndex = answerSet[questionIndex];
+          if (answerIndex == null) return;
+          const option = question.options[answerIndex];
+          const weight = question.weight || 1;
+          Object.entries(option.teamBonus || {}).forEach(([teamId, bonus]) => {
+            acc[teamId] = (acc[teamId] || 0) + bonus * weight;
+          });
         });
         return acc;
-      }, {});
+      };
+
+      const bonusMap = {};
+      addBonuses(bonusMap, surveyData.questions, answers);
+      addBonuses(bonusMap, tiebreakerQuestions, tiebreakerAnswers);
+      return bonusMap;
     }
 
     function calculateMatches(items, userNormalized, bonusMap = {}) {
@@ -505,7 +512,7 @@
     }
 
     function calculateTeamMatches(userNormalized) {
-      return calculateMatches(surveyData.teams, userNormalized, calculateTiebreakerTeamBonuses());
+      return calculateMatches(surveyData.teams, userNormalized, calculateTeamBonuses());
     }
 
     function calculateStyleMatches(userNormalized) {
