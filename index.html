@@ -187,6 +187,12 @@
       line-height: 1.6;
     }
 
+    .share-tip {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
     .dimension-row {
       display: grid;
       gap: 12px;
@@ -257,7 +263,7 @@
     <header class="header">
       <div>
         <h1 class="title">CS 主队偏好测试</h1>
-        <p class="subtitle">13 道单选题，做完直接测出你更像哪支主流强队，以及你的观赛风格倾向。</p>
+        <p class="subtitle">10 道核心单选题，必要时自动加试，让结果更贴近你真正偏爱的队伍风格。</p>
       </div>
       <div class="progress" aria-label="进度">
         <div class="progress-text" id="progressText">加载中…</div>
@@ -291,6 +297,7 @@
     let tiebreakerAnswers = [];
     let tiebreakerOptionOrders = [];
     let tiebreakerQuestionOrder = [];
+    let latestResultSnapshot = null;
 
     function createNode(html) {
       const template = document.createElement('template');
@@ -338,7 +345,7 @@
       progressFill.style.width = '0%';
       contentArea.innerHTML = `
         <h2 class="question-title">欢迎来到 CS 主队测试</h2>
-        <p class="subtitle" style="margin:0 0 20px;max-width:none;">通过 13 道题和可能出现的少量加试题，测出你最接近的 CS 强队风格。</p>
+        <p class="subtitle" style="margin:0 0 20px;max-width:none;">通过 10 道核心题和少量加试题，测出你最接近的 CS 强队风格。</p>
         <div class="actions" style="justify-content:flex-start;">
           <button class="button" id="startSurveyButton">开始测试</button>
         </div>
@@ -474,40 +481,117 @@
     }
 
     function calculateTeamBonuses() {
-      const addBonuses = (acc, questions, answerSet) => {
+      const addBonuses = (acc, questions, answerSet, scale = 1) => {
         questions.forEach((question, questionIndex) => {
           const answerIndex = answerSet[questionIndex];
           if (answerIndex == null) return;
           const option = question.options[answerIndex];
           const weight = question.weight || 1;
           Object.entries(option.teamBonus || {}).forEach(([teamId, bonus]) => {
-            acc[teamId] = (acc[teamId] || 0) + bonus * weight;
+            acc[teamId] = (acc[teamId] || 0) + bonus * weight * scale;
           });
         });
         return acc;
       };
 
       const bonusMap = {};
-      addBonuses(bonusMap, surveyData.questions, answers);
-      addBonuses(bonusMap, tiebreakerQuestions, tiebreakerAnswers);
+      const defaultScale = surveyData.teamBonusScale || 1;
+      const questionScale = surveyData.questionTeamBonusScale || defaultScale;
+      const tiebreakerScale = surveyData.tiebreakerTeamBonusScale || defaultScale;
+      addBonuses(bonusMap, surveyData.questions, answers, questionScale);
+      addBonuses(bonusMap, tiebreakerQuestions, tiebreakerAnswers, tiebreakerScale);
       return bonusMap;
+    }
+
+    function getDimensionWeights() {
+      const baseWeights = {
+        discipline: 1.08,
+        weapon: 1.1,
+        breakthrough: 1.14,
+        setup: 1.18,
+        tactics: 1.22,
+        clutch: 1.14,
+        economy: 1.08
+      };
+      const teams = surveyData.teams || [];
+      const teamCount = Math.max(teams.length, 1);
+
+      return surveyData.dimensions.reduce((acc, dimension) => {
+        const values = teams.map(team => team.profile?.[dimension.id] || 0);
+        const mean = values.reduce((sum, value) => sum + value, 0) / teamCount;
+        const variance = values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / teamCount;
+        const varianceBonus = Math.min(0.45, variance / 80);
+        acc[dimension.id] = (baseWeights[dimension.id] || 1) + varianceBonus;
+        return acc;
+      }, {});
+    }
+
+    function getSignatureBonus(userNormalized, item) {
+      const profile = item.profile || {};
+      const responseScale = surveyData.responseScale || surveyData.questionMaxScore || 5;
+      const teamScale = surveyData.teamScale || responseScale;
+      const maxGap = responseScale + teamScale;
+
+      return surveyData.dimensions
+        .map(dimension => ({
+          id: dimension.id,
+          teamValue: profile[dimension.id] || 0
+        }))
+        .filter(entry => Math.abs(entry.teamValue) >= 5)
+        .sort((a, b) => Math.abs(b.teamValue) - Math.abs(a.teamValue))
+        .slice(0, 3)
+        .reduce((sum, entry) => {
+          const userValue = userNormalized[entry.id] || 0;
+          if (!userValue || Math.sign(userValue) !== Math.sign(entry.teamValue)) {
+            return sum;
+          }
+          const closeness = 1 - Math.min(1, Math.abs(userValue - entry.teamValue) / maxGap);
+          return sum + closeness * 1.2;
+        }, 0);
+    }
+
+    function getTeamAdjustment(item) {
+      const profile = item.profile || {};
+      const averageIntensity = surveyData.dimensions.reduce((sum, dimension) => {
+        return sum + Math.abs(profile[dimension.id] || 0);
+      }, 0) / surveyData.dimensions.length;
+
+      return {
+        intensityCompensation: Math.max(0, averageIntensity - 3.2) * 1.25,
+        popularityBias: item.popularityBias || 0,
+        resultWeight: item.resultWeight || 1
+      };
     }
 
     function calculateMatches(items, userNormalized, bonusMap = {}) {
       const responseScale = surveyData.responseScale || surveyData.questionMaxScore || 5;
       const teamScale = surveyData.teamScale || responseScale;
       const maxDistancePerDimension = responseScale + teamScale;
+      const dimensionWeights = getDimensionWeights();
+      const weightedMaxDistance = surveyData.dimensions.reduce((sum, dimension) => {
+        return sum + (dimensionWeights[dimension.id] || 1) * maxDistancePerDimension;
+      }, 0);
 
       return items.map(item => {
         const profile = item.profile || {};
         const distance = surveyData.dimensions.reduce((acc, dimension) => {
           const userValue = userNormalized[dimension.id] || 0;
           const teamValue = profile[dimension.id] || 0;
-          return acc + Math.abs(userValue - teamValue);
+          const diffRatio = Math.abs(userValue - teamValue) / maxDistancePerDimension;
+          const weight = dimensionWeights[dimension.id] || 1;
+          const shapedDistance = (diffRatio * 0.45 + diffRatio * diffRatio * 0.55) * maxDistancePerDimension;
+          return acc + shapedDistance * weight;
         }, 0);
-        const adjustedDistance = Math.max(0, distance - (bonusMap[item.id] || 0));
-        const similarity = Math.max(0, 1 - adjustedDistance / (surveyData.dimensions.length * maxDistancePerDimension));
-        return { ...item, similarity, distance: adjustedDistance };
+
+        const rawBonus = bonusMap[item.id] || 0;
+        const softenedBonus = Math.sqrt(Math.max(0, rawBonus)) * 1.75;
+        const antiPenalty = Math.sqrt(Math.max(0, -rawBonus)) * 1.35;
+        const signatureBonus = getSignatureBonus(userNormalized, item);
+        const adjustment = getTeamAdjustment(item);
+        const adjustedDistance = Math.max(0, distance - softenedBonus - signatureBonus - adjustment.intensityCompensation - adjustment.popularityBias + antiPenalty);
+        const baseSimilarity = Math.max(0, 1 - adjustedDistance / weightedMaxDistance);
+        const similarity = Math.min(1, baseSimilarity * adjustment.resultWeight);
+        return { ...item, similarity, baseSimilarity, distance: adjustedDistance };
       }).sort((a, b) => b.similarity - a.similarity);
     }
 
@@ -532,29 +616,41 @@
     function selectTiebreakers(teamMatches, stabilityLabel = '中') {
       const settings = surveyData.adaptive || {};
       const baseGap = settings.triggerGap ?? 0.05;
-      const triggerGap = baseGap + (stabilityLabel === '低' ? 0.03 : stabilityLabel === '中' ? 0.01 : 0);
+      const triggerGap = baseGap + (stabilityLabel === '低' ? 0.04 : stabilityLabel === '中' ? 0.02 : 0);
       const poolSize = settings.poolSize ?? 4;
       const maxQuestions = settings.maxQuestions ?? 3;
 
       if (!teamMatches?.length) return [];
       const leadScore = teamMatches[0].similarity;
+      const secondScore = teamMatches[1]?.similarity ?? 0;
+      const topTwoIds = teamMatches.slice(0, 2).map(team => team.id);
+      const topTwoSet = new Set(topTwoIds);
       const closeTeams = teamMatches
         .filter((team, index) => index < poolSize && (leadScore - team.similarity) <= triggerGap)
         .map(team => team.id);
 
-      if (closeTeams.length < 2) {
+      const shouldRefine = closeTeams.length >= 2 || (leadScore - secondScore) <= (triggerGap + 0.015);
+      if (!shouldRefine) {
         return [];
       }
 
-      const closeSet = new Set(closeTeams);
+      const candidateTeams = closeTeams.length >= 2 ? closeTeams : topTwoIds;
+      const closeSet = new Set(candidateTeams);
+      const extraQuestions = stabilityLabel === '低' ? 2 : stabilityLabel === '中' ? 1 : 0;
+
       return (surveyData.tiebreakers || [])
         .map(question => ({
           ...question,
-          overlap: (question.targets || []).filter(teamId => closeSet.has(teamId)).length
+          overlap: (question.targets || []).filter(teamId => closeSet.has(teamId)).length,
+          topPairCoverage: (question.targets || []).filter(teamId => topTwoSet.has(teamId)).length
         }))
-        .filter(question => question.overlap >= 2)
-        .sort((a, b) => b.overlap - a.overlap)
-        .slice(0, maxQuestions);
+        .filter(question => question.overlap >= 2 || question.topPairCoverage === 2)
+        .sort((a, b) => {
+          if (b.topPairCoverage !== a.topPairCoverage) return b.topPairCoverage - a.topPairCoverage;
+          if (b.overlap !== a.overlap) return b.overlap - a.overlap;
+          return (b.weight || 1) - (a.weight || 1);
+        })
+        .slice(0, Math.min((surveyData.tiebreakers || []).length, maxQuestions + extraQuestions));
     }
 
     function maybeStartTiebreakers() {
@@ -585,40 +681,206 @@
       if (topMatch.similarity >= 0.65 && gap >= 0.04 && stabilityLabel !== '低') return '中';
       return '低';
     }
+
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const chars = Array.from(text || '');
+      let line = '';
+      let cursorY = y;
+
+      chars.forEach(char => {
+        const testLine = line + char;
+        if (ctx.measureText(testLine).width > maxWidth && line) {
+          ctx.fillText(line, x, cursorY);
+          line = char;
+          cursorY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      });
+
+      if (line) {
+        ctx.fillText(line, x, cursorY);
+        cursorY += lineHeight;
+      }
+
+      return cursorY;
+    }
+
+    function blobToDataUrl(blob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    async function getQrCodeDataUrl(text) {
+      try {
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=0&data=${encodeURIComponent(text)}`;
+        const response = await fetch(qrUrl);
+        if (!response.ok) throw new Error('QR code fetch failed');
+        const blob = await response.blob();
+        return await blobToDataUrl(blob);
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    }
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    function downloadBlob(blob, fileName) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    async function buildShareImage(snapshot) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1350;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#f8f2e8';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#1f3a70';
+      ctx.fillRect(60, 60, 960, 1230);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(96, 96, 888, 1158);
+
+      ctx.fillStyle = '#1f3a70';
+      ctx.font = 'bold 46px Segoe UI';
+      ctx.fillText('CS 主队偏好测试结果', 140, 180);
+
+      ctx.fillStyle = '#b9551e';
+      ctx.font = 'bold 72px Segoe UI';
+      ctx.fillText(snapshot.teamLabel, 140, 290);
+
+      ctx.fillStyle = '#111827';
+      ctx.font = '28px Segoe UI';
+      wrapCanvasText(ctx, snapshot.description, 140, 350, 560, 42);
+
+      ctx.fillStyle = '#4b5563';
+      ctx.font = '26px Segoe UI';
+      ctx.fillText(`主队接近度：${snapshot.percent}%`, 140, 500);
+      ctx.fillText(`结果分组：${snapshot.group}`, 140, 545);
+
+      ctx.fillStyle = '#111827';
+      ctx.font = 'bold 30px Segoe UI';
+      ctx.fillText('其他接近主队', 140, 640);
+      ctx.font = '24px Segoe UI';
+      ctx.fillStyle = '#4b5563';
+      snapshot.others.forEach((item, index) => {
+        ctx.fillText(`${index + 1}. ${item.label} · ${item.percent}%`, 140, 690 + index * 38);
+      });
+
+      ctx.fillStyle = '#fbf6ef';
+      ctx.fillRect(720, 220, 190, 190);
+      const qrDataUrl = await getQrCodeDataUrl(snapshot.url);
+      if (qrDataUrl) {
+        try {
+          const qrImage = await loadImage(qrDataUrl);
+          ctx.drawImage(qrImage, 720, 220, 190, 190);
+        } catch {
+          ctx.fillStyle = '#1f3a70';
+          ctx.fillRect(720, 220, 190, 190);
+        }
+      }
+
+      ctx.fillStyle = '#1f3a70';
+      ctx.font = '24px Segoe UI';
+      ctx.fillText('扫码自己测', 740, 440);
+
+      ctx.fillStyle = '#4b5563';
+      ctx.font = '24px Segoe UI';
+      wrapCanvasText(ctx, '我测出来的主队是这支，你也来试试。', 140, 900, 760, 38);
+
+      return await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+    }
+
+    async function shareResultImage() {
+      if (!latestResultSnapshot?.teamLabel) return;
+      const shareButton = document.getElementById('shareButton');
+      if (shareButton) {
+        shareButton.disabled = true;
+        shareButton.textContent = '正在生成分享图...';
+      }
+
+      try {
+        const blob = await buildShareImage(latestResultSnapshot);
+        if (!blob) throw new Error('生成图片失败');
+        const file = new File([blob], 'cs-team-result.png', { type: 'image/png' });
+
+        if (navigator.share && navigator.canShare?.({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'CS 主队测试结果',
+            text: `我测出来的主队是 ${latestResultSnapshot.teamLabel}`
+          });
+        } else {
+          downloadBlob(blob, 'cs-team-result.png');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('分享图生成失败，请稍后再试。');
+      } finally {
+        if (shareButton) {
+          shareButton.disabled = false;
+          shareButton.textContent = '分享结果图';
+        }
+      }
+    }
+
     function showResult() {
       calculateScores();
       const userNormalized = normalizeScores();
       const teamMatches = calculateTeamMatches(userNormalized);
-      const styleMatches = calculateStyleMatches(userNormalized);
       const topMatch = teamMatches[0];
-      const dominantStyle = styleMatches[0];
       const secondMatch = teamMatches[1];
-      const stabilityLabel = getStabilityLabel(userNormalized);
       const isCloseCall = topMatch && secondMatch && (topMatch.similarity - secondMatch.similarity) <= 0.04;
-      const confidenceLabel = getConfidenceLabel(topMatch, secondMatch, stabilityLabel);
+      const maxRawPercent = Math.max(0, ...teamMatches.map(match => (match?.similarity || 0) * 100));
+      const displayScale = maxRawPercent > 100 ? 100 / maxRawPercent : 1;
+      const getDisplayPercent = (match) => {
+        if (!match) return 0;
+        return Math.max(0, Math.round((match.similarity || 0) * 100 * displayScale));
+      };
 
       contentArea.innerHTML = `
         <h2 class="question-title">你的主队结果</h2>
         <div class="results" id="resultsContainer"></div>
+        <p class="share-tip">可以一键生成带二维码的分享图，方便发给朋友测同款。</p>
         <div class="actions">
           <button class="button secondary" id="restartButton">重新开始</button>
+          <button class="button" id="shareButton">分享结果图</button>
         </div>
       `;
 
       const resultsContainer = document.getElementById('resultsContainer');
 
-      if (topMatch || dominantStyle) {
+      if (topMatch) {
         const matchCard = createNode(`
           <div class="result-item">
-            <h3 class="result-title">你的主队：${topMatch?.label || dominantStyle?.label}</h3>
-            <p class="result-description">${topMatch?.description || dominantStyle?.description}</p>
-            <p class="result-description">主队接近度：${topMatch ? Math.round(topMatch.similarity * 100) : '--'}%</p>
-            <p class="result-description">结果分组：${topMatch?.group || '综合型'}</p>
-            <p class="result-description">结果置信度：${confidenceLabel}</p>
-            <p class="result-description">作答稳定度：${stabilityLabel}</p>
-            <p class="result-description">风格倾向：${dominantStyle?.label || '综合型'}</p>
+            <h3 class="result-title">你的主队：${topMatch.label}</h3>
+            <p class="result-description">${topMatch.description}</p>
+            <p class="result-description">主队接近度：${getDisplayPercent(topMatch)}%</p>
+            <p class="result-description">结果分组：${topMatch.group || '综合型'}</p>
             ${tiebreakerQuestions.length ? '<p class="result-description">本次结果已启用加试题进一步区分接近战队。</p>' : ''}
-            ${isCloseCall ? `<p class="result-description">你的结果也非常接近 ${secondMatch.label}（${Math.round(secondMatch.similarity * 100)}%），属于混合倾向。</p>` : ''}
+            ${isCloseCall ? `<p class="result-description">你的结果也非常接近 ${secondMatch.label}（${getDisplayPercent(secondMatch)}%），属于混合倾向。</p>` : ''}
           </div>
         `);
         resultsContainer.appendChild(matchCard);
@@ -634,7 +896,7 @@
       const candidateList = candidateCard.querySelector('#candidateList');
       teamMatches.slice(1, 4).forEach(team => {
         const item = document.createElement('li');
-        item.textContent = `${team.label} · 接近度 ${Math.round(team.similarity * 100)}%`;
+        item.textContent = `${team.label} · 接近度 ${getDisplayPercent(team)}%`;
         candidateList.appendChild(item);
       });
 
@@ -664,6 +926,15 @@
         resultsContainer.appendChild(card);
       });
 
+      latestResultSnapshot = {
+        teamLabel: topMatch?.label || '综合型',
+        description: topMatch?.description || '你的观赛风格比较综合。',
+        percent: topMatch ? getDisplayPercent(topMatch) : '--',
+        group: topMatch?.group || '综合型',
+        others: teamMatches.slice(1, 4).map(team => ({ label: team.label, percent: getDisplayPercent(team) })),
+        url: window.location.href
+      };
+
       document.getElementById('restartButton').addEventListener('click', () => {
         hasStarted = false;
         currentPhase = 'base';
@@ -675,7 +946,12 @@
         tiebreakerOptionOrders = [];
         questionOrder = [];
         optionOrders = [];
+        latestResultSnapshot = null;
         renderStartScreen();
+      });
+
+      document.getElementById('shareButton').addEventListener('click', () => {
+        shareResultImage();
       });
 
       progressText.textContent = '完成问卷';
