@@ -581,20 +581,23 @@
           const userValue = userNormalized[dimension.id] || 0;
           const teamValue = profile[dimension.id] || 0;
           const diffRatio = Math.abs(userValue - teamValue) / maxDistancePerDimension;
-          const weight = dimensionWeights[dimension.id] || 1;
-          const shapedDistance = (diffRatio * 0.45 + diffRatio * diffRatio * 0.55) * maxDistancePerDimension;
+          const weight = (dimensionWeights[dimension.id] || 1) * 0.55;
+          const shapedDistance = (diffRatio * 0.35 + diffRatio * diffRatio * 0.4) * maxDistancePerDimension;
           return acc + shapedDistance * weight;
         }, 0);
 
         const rawBonus = bonusMap[item.id] || 0;
-        const softenedBonus = Math.sqrt(Math.max(0, rawBonus)) * 1.75;
-        const antiPenalty = Math.sqrt(Math.max(0, -rawBonus)) * 1.35;
-        const signatureBonus = getSignatureBonus(userNormalized, item);
+        const positiveBonus = Math.pow(Math.max(0, rawBonus), 0.72) * 2.15;
+        const antiPenalty = Math.pow(Math.max(0, -rawBonus), 0.72) * 1.75;
+        const signatureBonus = getSignatureBonus(userNormalized, item) * 0.3;
         const adjustment = getTeamAdjustment(item);
-        const adjustedDistance = Math.max(0, distance - softenedBonus - signatureBonus - adjustment.intensityCompensation - adjustment.popularityBias + antiPenalty);
-        const baseSimilarity = Math.max(0, 1 - adjustedDistance / weightedMaxDistance);
-        const similarity = Math.min(1, baseSimilarity * adjustment.resultWeight);
-        return { ...item, similarity, baseSimilarity, distance: adjustedDistance };
+        const adjustedDistance = Math.max(0, distance - positiveBonus - signatureBonus - adjustment.intensityCompensation * 0.35 - adjustment.popularityBias * 0.35 + antiPenalty);
+        const styleSimilarity = Math.max(0, 1 - adjustedDistance / weightedMaxDistance);
+        const bonusSimilarity = 1 - Math.exp(-Math.max(0, rawBonus) / 10);
+        const penaltyCut = Math.min(0.4, Math.max(0, -rawBonus) / 30);
+        const combinedSimilarity = Math.max(0, bonusSimilarity * 0.72 + styleSimilarity * 0.28 - penaltyCut);
+        const similarity = Math.max(0, Math.min(0.965, (0.16 + combinedSimilarity * 0.76) * Math.min(1.02, adjustment.resultWeight)));
+        return { ...item, similarity, baseSimilarity: styleSimilarity, distance: adjustedDistance };
       }).sort((a, b) => b.similarity - a.similarity);
     }
 
@@ -781,15 +784,14 @@
       ctx.fillStyle = '#4b5563';
       ctx.font = '26px Segoe UI';
       ctx.fillText(`主队接近度：${snapshot.percent}%`, 140, 500);
-      ctx.fillText(`结果分组：${snapshot.group}`, 140, 545);
 
       ctx.fillStyle = '#111827';
       ctx.font = 'bold 30px Segoe UI';
-      ctx.fillText('其他接近主队', 140, 640);
+      ctx.fillText('其他接近主队', 140, 610);
       ctx.font = '24px Segoe UI';
       ctx.fillStyle = '#4b5563';
       snapshot.others.forEach((item, index) => {
-        ctx.fillText(`${index + 1}. ${item.label} · ${item.percent}%`, 140, 690 + index * 38);
+        ctx.fillText(`${index + 1}. ${item.label} · ${item.percent}%`, 140, 660 + index * 38);
       });
 
       ctx.fillStyle = '#fbf6ef';
@@ -811,7 +813,19 @@
 
       ctx.fillStyle = '#4b5563';
       ctx.font = '24px Segoe UI';
-      wrapCanvasText(ctx, '我测出来的主队是这支，你也来试试。', 140, 900, 760, 38);
+      let answerY = wrapCanvasText(ctx, '我测出来的主队是这支，你也来试试。', 140, 870, 760, 38);
+
+      if (snapshot.answers?.length) {
+        ctx.fillStyle = '#111827';
+        ctx.font = 'bold 22px Segoe UI';
+        ctx.fillText('作答记录', 140, answerY + 18);
+        ctx.fillStyle = '#4b5563';
+        ctx.font = '17px Segoe UI';
+        answerY += 52;
+        snapshot.answers.slice(0, 14).forEach(line => {
+          answerY = wrapCanvasText(ctx, `• ${line}`, 140, answerY, 760, 24);
+        });
+      }
 
       return await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     }
@@ -849,18 +863,32 @@
       }
     }
 
+    function getAnswerSummaryLines() {
+      const baseLines = surveyData.questions.map((question, index) => {
+        const answerIndex = answers[index];
+        if (answerIndex == null) return null;
+        return `${question.title.replace(/^\d+\.\s*/, '')}：${question.options[answerIndex].label}`;
+      }).filter(Boolean);
+
+      const extraLines = tiebreakerQuestions.map((question, index) => {
+        const answerIndex = tiebreakerAnswers[index];
+        if (answerIndex == null) return null;
+        return `加试·${question.title}：${question.options[answerIndex].label}`;
+      }).filter(Boolean);
+
+      return [...baseLines, ...extraLines];
+    }
+
     function showResult() {
       calculateScores();
       const userNormalized = normalizeScores();
       const teamMatches = calculateTeamMatches(userNormalized);
       const topMatch = teamMatches[0];
-      const secondMatch = teamMatches[1];
-      const isCloseCall = topMatch && secondMatch && (topMatch.similarity - secondMatch.similarity) <= 0.04;
-      const maxRawPercent = Math.max(0, ...teamMatches.map(match => (match?.similarity || 0) * 100));
-      const displayScale = maxRawPercent > 100 ? 100 / maxRawPercent : 1;
-      const getDisplayPercent = (match) => {
-        if (!match) return 0;
-        return Math.max(0, Math.round((match.similarity || 0) * 100 * displayScale));
+      const getDisplayPercent = (match, rankIndex = 0) => {
+        if (!match) return '0.0';
+        const rawPercent = Math.max(0, Math.min(96.5, (match.similarity || 0) * 100));
+        const displayPercent = rankIndex === 0 ? rawPercent : Math.min(92.8, rawPercent);
+        return displayPercent.toFixed(1);
       };
 
       contentArea.innerHTML = `
@@ -880,10 +908,8 @@
           <div class="result-item">
             <h3 class="result-title">你的主队：${topMatch.label}</h3>
             <p class="result-description">${topMatch.description}</p>
-            <p class="result-description">主队接近度：${getDisplayPercent(topMatch)}%</p>
-            <p class="result-description">结果分组：${topMatch.group || '综合型'}</p>
+            <p class="result-description">主队接近度：${getDisplayPercent(topMatch, 0)}%</p>
             ${tiebreakerQuestions.length ? '<p class="result-description">本次结果已启用加试题进一步区分接近战队。</p>' : ''}
-            ${isCloseCall ? `<p class="result-description">你的结果也非常接近 ${secondMatch.label}（${getDisplayPercent(secondMatch)}%），属于混合倾向。</p>` : ''}
           </div>
         `);
         resultsContainer.appendChild(matchCard);
@@ -897,9 +923,9 @@
       `);
       resultsContainer.appendChild(candidateCard);
       const candidateList = candidateCard.querySelector('#candidateList');
-      teamMatches.slice(1, 4).forEach(team => {
+      teamMatches.slice(1, 4).forEach((team, index) => {
         const item = document.createElement('li');
-        item.textContent = `${team.label} · 接近度 ${getDisplayPercent(team)}%`;
+        item.textContent = `${team.label} · 接近度 ${getDisplayPercent(team, index + 1)}%`;
         candidateList.appendChild(item);
       });
 
@@ -932,9 +958,9 @@
       latestResultSnapshot = {
         teamLabel: topMatch?.label || '综合型',
         description: topMatch?.description || '你的观赛风格比较综合。',
-        percent: topMatch ? getDisplayPercent(topMatch) : '--',
-        group: topMatch?.group || '综合型',
-        others: teamMatches.slice(1, 4).map(team => ({ label: team.label, percent: getDisplayPercent(team) })),
+        percent: topMatch ? getDisplayPercent(topMatch, 0) : '--',
+        others: teamMatches.slice(1, 4).map((team, index) => ({ label: team.label, percent: getDisplayPercent(team, index + 1) })),
+        answers: getAnswerSummaryLines(),
         url: window.location.href
       };
 

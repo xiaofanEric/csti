@@ -2,9 +2,9 @@
   "questionMaxScore": 5,
   "responseScale": 8,
   "teamScale": 8,
-  "teamBonusScale": 0.65,
-  "questionTeamBonusScale": 0.3,
-  "tiebreakerTeamBonusScale": 1.1,
+  "teamBonusScale": 1.8,
+  "questionTeamBonusScale": 1.35,
+  "tiebreakerTeamBonusScale": 2.2,
   "styles": [
     {
       "id": "A",
@@ -182,13 +182,13 @@
       ]
     },
     {
-      "title": "4. 一场势均力敌的比赛里，什么最让你上头？",
+      "title": "4. 谁是狙击手最高的山？",
       "weight": 1.2,
       "options": [
-        { "label": "连续几个回合完全不给对手机会", "style": "A", "teamBonus": { "vitality": 3, "navi": 3, "parivision": 4 }, "scores": { "discipline": 4, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 4, "clutch": 2, "economy": 1 } },
-        { "label": "正面对枪狠狠干住对手", "style": "B", "teamBonus": { "falcons": 4, "spirit": 3, "g2": 3 }, "scores": { "discipline": -3, "weapon": -3, "breakthrough": 5, "setup": -1, "tactics": -5, "clutch": 0, "economy": -1 } },
-        { "label": "一个残局一个残局慢慢把你磨死", "style": "C", "teamBonus": { "faze": 2, "vitality": 4, "parivision": 3 }, "scores": { "discipline": 2, "weapon": 3, "breakthrough": -3, "setup": 2, "tactics": 2, "clutch": 5, "economy": 2 } },
-        { "label": "前压、偷人、绕后把对手心态打爆", "style": "D", "teamBonus": { "furia": 4, "mongolz": 4, "spirit": 1, "tyloo": 5 }, "scores": { "discipline": -2, "weapon": -1, "breakthrough": 3, "setup": -5, "tactics": 0, "clutch": 2, "economy": -1 } }
+        { "label": "s1mple", "style": "C", "teamBonus": { "navi": 5, "astralis": 2, "vitality": -6, "parivision": -2 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 0, "tactics": 1, "clutch": 5, "economy": 0 } },
+        { "label": "ZywOo", "style": "C", "teamBonus": { "vitality": 6, "navi": -4, "faze": 1, "astralis": -3 }, "scores": { "discipline": 2, "weapon": 5, "breakthrough": -1, "setup": 2, "tactics": 2, "clutch": 4, "economy": 1 } },
+        { "label": "DANK1NG", "style": "B", "teamBonus": { "falcons": 4, "tyloo": 2, "spirit": 1, "vitality": -2 }, "scores": { "discipline": -1, "weapon": 4, "breakthrough": 3, "setup": -1, "tactics": -1, "clutch": 2, "economy": 0 } },
+        { "label": "JEE", "style": "A", "teamBonus": { "tyloo": 4 }, "scores": { "discipline": 3, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 3, "clutch": 1, "economy": 1 } }
       ]
     },
     {
@@ -217,18 +217,18 @@
       "options": [
         { "label": "我对这个队伍有情感", "style": "A", "teamBonus": { "navi": 4, "astralis": 4, "parivision": -4, "falcons": -5, "spirit": -4, "furia": -4, "mongolz": -4, "tyloo": 6 }, "scores": { "discipline": 4, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 4, "clutch": 1, "economy": 1 } },
         { "label": "队里有我喜欢的明星选手", "style": "B", "teamBonus": { "spirit": 4, "g2": 4, "falcons": 3, "vitality": 2, "astralis": -2, "parivision": -2 }, "scores": { "discipline": -4, "weapon": -2, "breakthrough": 4, "setup": -1, "tactics": -3, "clutch": 2, "economy": -1 } },
-        { "label": "队伍的战术配合太好看了", "style": "C", "teamBonus": { "vitality": 3, "navi": 3, "parivision": 4, "falcons": -2, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 1, "weapon": 5, "breakthrough": -2, "setup": 1, "tactics": 2, "clutch": 4, "economy": 1 } },
-        { "label": "我有恋老癖", "style": "D", "teamBonus": { "astralis": 4, "faze": 3, "falcons": -4, "furia": -4, "mongolz": -4, "spirit": -3, "tyloo": -3, "parivision": -2, "vitality": -2 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 2, "economy": 0 } }
+        { "label": "队伍的战术配合太好看了", "style": "C", "teamBonus": { "vitality": 3, "faze": -3, "navi": 3, "parivision": 4, "falcons": -2, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 1, "weapon": 5, "breakthrough": -2, "setup": 1, "tactics": 2, "clutch": 4, "economy": 1 } },
+        { "label": "我有恋老癖", "style": "D", "teamBonus": { "astralis": 4, "faze": 4, "falcons": -4, "furia": -4, "mongolz": -4, "spirit": -3, "tyloo": -3, "parivision": -2, "vitality": -2 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 2, "economy": 0 } }
       ]
     },
     {
       "title": "8. 你平时更偏好看什么样的 CS 视频？",
       "weight": 1.1,
       "options": [
-        { "label": "明星狙击手的高光甩狙", "style": "C", "teamBonus": { "vitality": 4, "furia": 6, "navi": 6, "falcons": 6 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
+        { "label": "明星狙击手的高光甩狙", "style": "C", "teamBonus": { "vitality": 4, "furia": 6,  "faze": -3, "navi": 6, "falcons": 6 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
         { "label": "步枪手的暴力突破", "style": "B", "teamBonus": { "spirit": 4, "falcons": 4, "mongolz": 3 }, "scores": { "discipline": -4, "weapon": -4, "breakthrough": 5, "setup": -2, "tactics": -3, "clutch": -1, "economy": -1 } },
         { "label": "优雅的爆弹与战术配合进点", "style": "A", "teamBonus": { "parivision": 4, "navi": 4, "astralis": 4, "vitality": 3, "faze": -5, "falcons": -2, "spirit": -2, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 5, "clutch": 2, "economy": 1 } },
-        { "label": "阴暗的自由人操作", "style": "D", "teamBonus": { "faze": 4, "vitality": 3, "furia": 2 }, "scores": { "discipline": -1, "weapon": -1, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 4, "economy": 1 } }
+        { "label": "阴暗的自由人操作", "style": "D", "teamBonus": { "faze": 3, "vitality": 3, "furia": 2 }, "scores": { "discipline": -1, "weapon": -1, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 4, "economy": 1 } }
       ]
     },
     {
@@ -236,7 +236,7 @@
       "weight": 1.2,
       "options": [
         { "label": "莫名其妙犯错送分", "style": "A", "teamBonus": { "navi": 3, "parivision": 4, "astralis": 4, "vitality": 2, "faze": 2, "falcons": -2, "spirit": -1, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 5, "weapon": 0, "breakthrough": -2, "setup": 1, "tactics": 3, "clutch": 1, "economy": 1 } },
-        { "label": "战术打出来了，但是枪法不够硬，被对面狠狠干碎", "style": "B", "teamBonus": { "falcons": 4, "g2": 4, "spirit": 3 }, "scores": { "discipline": -3, "weapon": -3, "breakthrough": 4, "setup": -1, "tactics": -4, "clutch": 0, "economy": -1 } },
+        { "label": "战术打出来了，但是枪法不够硬，被对面狠狠干碎", "style": "B", "teamBonus": { "falcons": 4, "g2": 4,  "faze": -3, "spirit": 3 }, "scores": { "discipline": -3, "weapon": -3, "breakthrough": 4, "setup": -1, "tactics": -4, "clutch": 0, "economy": -1 } },
         { "label": "狙击手太摊了，疯狂放炮", "style": "C", "teamBonus": { "vitality": -4, "faze": 6, "navi": 6, "falcons": 2 }, "scores": { "discipline": 1, "weapon": 5, "breakthrough": -1, "setup": 1, "tactics": 2, "clutch": 2, "economy": 1 } },
         { "label": "被对手研究透了，用道具配合限制死", "style": "D", "teamBonus": { "furia": 3, "falcons": 4, "mongolz": 3, "mouz": 2 }, "scores": { "discipline": 0, "weapon": 0, "breakthrough": 1, "setup": -5, "tactics": 2, "clutch": 1, "economy": 0 } }
       ]
@@ -245,10 +245,10 @@
       "title": "10. 你更喜欢哪一个名场面？",
       "weight": 1.2,
       "options": [
-        { "label": "中门鸟狙爆头载物", "style": "C", "teamBonus": { "falcons": 5 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 2, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
-        { "label": "apex世界级扫转", "style": "D", "teamBonus": { "vitality": 5 }, "scores": { "discipline": 1, "weapon": 1, "breakthrough": 3, "setup": 1, "tactics": 2, "clutch": 2, "economy": 0 } },
-        { "label": "donk mirage 1v5", "style": "B", "teamBonus": { "spirit": 5 }, "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": -1, "clutch": 4, "economy": -1 } },
-        { "label": "总监外场最速传说", "style": "D", "teamBonus": { "faze": 5 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 4, "setup": -2, "tactics": 1, "clutch": 3, "economy": 0 } }
+        { "label": "中门鸟狙爆头载物", "style": "C", "teamBonus": { "falcons": 3 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 2, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
+        { "label": "apex世界级扫转", "style": "D", "teamBonus": { "vitality": 3 }, "scores": { "discipline": 1, "weapon": 1, "breakthrough": 3, "setup": 1, "tactics": 2, "clutch": 2, "economy": 0 } },
+        { "label": "donk mirage 1v5", "style": "B", "teamBonus": { "spirit": 3 }, "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": -1, "clutch": 4, "economy": -1 } },
+        { "label": "总监外场最速传说", "style": "D", "teamBonus": { "faze": 3 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 4, "setup": -2, "tactics": 1, "clutch": 3, "economy": 0 } }
       ]
     }
   ],
@@ -276,10 +276,10 @@
       "targets": ["vitality", "navi", "astralis", "parivision", "spirit"],
       "weight": 1.2,
       "options": [
-        { "label": "残局越到后面越让人放心", "teamBonus": { "vitality": 4, "parivision": 3, "navi": 2 }, "scores": { "clutch": 5, "discipline": 1 } },
-        { "label": "默认和中后期运营完全不着急", "teamBonus": { "parivision": 4, "astralis": 4, "vitality": 2 }, "scores": { "setup": 4, "economy": 4 } },
-        { "label": "团队框架很稳，但进攻仍有提速感", "teamBonus": { "spirit": 4, "navi": 2 }, "scores": { "breakthrough": 2, "tactics": 2 } },
-        { "label": "既有体系，也很依赖狙击位制造压迫", "teamBonus": { "vitality": 3, "navi": 3 }, "scores": { "weapon": 4, "discipline": 1 } }
+        { "label": "残局越到后面越让人放心", "teamBonus": { "vitality": 5, "parivision": 2, "navi": 1 }, "scores": { "clutch": 5, "discipline": 1 } },
+        { "label": "默认和中后期运营完全不着急", "teamBonus": { "parivision": 5, "astralis": 4, "vitality": 1 }, "scores": { "setup": 4, "economy": 5 } },
+        { "label": "团队框架很稳，但进攻仍有提速感", "teamBonus": { "spirit": 5, "navi": 2 }, "scores": { "breakthrough": 3, "tactics": 2 } },
+        { "label": "既有体系，也很依赖狙击位制造压迫", "teamBonus": { "navi": 5, "vitality": 2 }, "scores": { "weapon": 4, "discipline": 2 } }
       ]
     },
     {
@@ -288,10 +288,10 @@
       "targets": ["faze", "g2", "falcons"],
       "weight": 1.35,
       "options": [
-        { "label": "老将大心脏，关键局总有人站出来", "teamBonus": { "faze": 5, "g2": 1 }, "scores": { "clutch": 4, "breakthrough": 2 } },
-        { "label": "明星选手一起把正面火力直接堆满", "teamBonus": { "falcons": 7, "g2": 1 }, "scores": { "tactics": -4, "breakthrough": 5 } },
-        { "label": "火力很硬，同时整体被教练调得更成型", "teamBonus": { "g2": 5, "faze": 1 }, "scores": { "discipline": 2, "weapon": -2, "tactics": 2 } },
-        { "label": "我就喜欢巨星阵容的观赏性和压迫感", "teamBonus": { "faze": 2, "falcons": 4, "g2": 1 }, "scores": { "breakthrough": 3, "clutch": 1 } }
+        { "label": "老将大心脏，关键局总有人站出来", "teamBonus": { "faze": 6, "g2": 1 }, "scores": { "clutch": 5, "breakthrough": 2 } },
+        { "label": "明星选手一起把正面火力直接堆满", "teamBonus": { "falcons": 7, "g2": 1 }, "scores": { "tactics": -5, "breakthrough": 5 } },
+        { "label": "火力很硬，同时整体被教练调得更成型", "teamBonus": { "g2": 6, "faze": 1 }, "scores": { "discipline": 3, "weapon": -2, "tactics": 3 } },
+        { "label": "我就喜欢巨星阵容的观赏性和压迫感", "teamBonus": { "falcons": 5, "faze": 1, "g2": 1 }, "scores": { "breakthrough": 4, "clutch": 0 } }
       ]
     },
     {
@@ -300,10 +300,10 @@
       "targets": ["faze", "g2", "falcons"],
       "weight": 1.4,
       "options": [
-        { "label": "明星一旦状态齐开，正面几乎全靠硬解拿下", "teamBonus": { "falcons": 6, "g2": 1 }, "scores": { "breakthrough": 4, "tactics": -4, "clutch": 1 } },
-        { "label": "老将和关键先生撑住大场面，越关键越敢打", "teamBonus": { "faze": 6, "g2": 1 }, "scores": { "clutch": 4, "breakthrough": 2 } },
-        { "label": "枪线很硬，但整体明显更有框架和章法", "teamBonus": { "g2": 5, "faze": 1 }, "scores": { "discipline": 2, "tactics": 3 } },
-        { "label": "我就喜欢星味拉满、爆弹一到直接压死人的感觉", "teamBonus": { "falcons": 6, "faze": 2 }, "scores": { "breakthrough": 5, "tactics": -5, "economy": -1 } }
+        { "label": "明星一旦状态齐开，正面几乎全靠硬解拿下", "teamBonus": { "falcons": 7, "g2": 1 }, "scores": { "breakthrough": 5, "tactics": -4, "clutch": 1 } },
+        { "label": "老将和关键先生撑住大场面，越关键越敢打", "teamBonus": { "faze": 7, "g2": 1 }, "scores": { "clutch": 5, "breakthrough": 2 } },
+        { "label": "枪线很硬，但整体明显更有框架和章法", "teamBonus": { "g2": 6, "faze": 1 }, "scores": { "discipline": 3, "tactics": 4 } },
+        { "label": "我就喜欢星味拉满、爆弹一到直接压死人的感觉", "teamBonus": { "falcons": 5, "faze": 1 }, "scores": { "breakthrough": 5, "tactics": -5, "economy": -1 } }
       ]
     },
     {
@@ -312,10 +312,10 @@
       "targets": ["furia", "mongolz", "spirit", "falcons", "tyloo"],
       "weight": 1.35,
       "options": [
-        { "label": "前压撕图，狙击和疯狗突破一起制造观赏性", "teamBonus": { "furia": 6, "tyloo": 4, "spirit": 1 }, "scores": { "setup": -5, "breakthrough": 4, "weapon": 1 } },
-        { "label": "年轻枪线拉满，节奏快，狙击位也很有上限", "teamBonus": { "mongolz": 5, "tyloo": 3, "falcons": 2 }, "scores": { "weapon": 1, "breakthrough": 5 } },
-        { "label": "顶级步枪稳定输出，再配狙击位兜底", "teamBonus": { "spirit": 6, "falcons": 1 }, "scores": { "tactics": 3, "breakthrough": 2, "clutch": 2 } },
-        { "label": "爆弹一到，靠明星火力瞬间冲垮对手", "teamBonus": { "falcons": 6, "furia": 1 }, "scores": { "tactics": -5, "breakthrough": 5 } }
+        { "label": "前压撕图，狙击和疯狗突破一起制造观赏性", "teamBonus": { "furia": 7, "tyloo": 3, "spirit": 1 }, "scores": { "setup": -6, "breakthrough": 4, "weapon": 1 } },
+        { "label": "年轻枪线拉满，节奏快，狙击位也很有上限", "teamBonus": { "mongolz": 6, "tyloo": 2, "falcons": 1 }, "scores": { "weapon": 2, "breakthrough": 5 } },
+        { "label": "顶级步枪稳定输出，再配狙击位兜底", "teamBonus": { "spirit": 7, "falcons": 1 }, "scores": { "tactics": 4, "breakthrough": 2, "clutch": 2 } },
+        { "label": "爆弹一到，靠明星火力瞬间冲垮对手", "teamBonus": { "falcons": 7, "furia": 1 }, "scores": { "tactics": -6, "breakthrough": 5 } }
       ]
     },
     {
