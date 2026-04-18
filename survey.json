@@ -185,10 +185,10 @@
       "title": "4. 谁是狙击手最高的山？",
       "weight": 1.2,
       "options": [
-        { "label": "s1mple", "style": "C", "teamBonus": { "navi": 5, "astralis": 2, "vitality": -6, "parivision": -2 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 0, "tactics": 1, "clutch": 5, "economy": 0 } },
-        { "label": "ZywOo", "style": "C", "teamBonus": { "vitality": 6, "navi": -4, "faze": 1, "astralis": -3 }, "scores": { "discipline": 2, "weapon": 5, "breakthrough": -1, "setup": 2, "tactics": 2, "clutch": 4, "economy": 1 } },
-        { "label": "DANK1NG", "style": "B", "teamBonus": { "falcons": 4, "tyloo": 2, "spirit": 1, "vitality": -2 }, "scores": { "discipline": -1, "weapon": 4, "breakthrough": 3, "setup": -1, "tactics": -1, "clutch": 2, "economy": 0 } },
-        { "label": "JEE", "style": "A", "teamBonus": { "tyloo": 4 }, "scores": { "discipline": 3, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 3, "clutch": 1, "economy": 1 } }
+        { "label": "s1mple", "style": "C", "teamBonus": { "navi": 5, "vitality": -6 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 0, "tactics": 1, "clutch": 5, "economy": 0 } },
+        { "label": "ZywOo", "style": "C", "teamBonus": { "vitality": 4, "navi": -6, "faze": 1 }, "scores": { "discipline": 2, "weapon": 5, "breakthrough": -1, "setup": 2, "tactics": 2, "clutch": 4, "economy": 1 } },
+        { "label": "DANK1NG", "style": "B", "teamBonus": { "falcons": 6, "tyloo": 4, "spirit": 1, "vitality": -4 }, "scores": { "discipline": -1, "weapon": 4, "breakthrough": 3, "setup": -1, "tactics": -1, "clutch": 2, "economy": 0 } },
+        { "label": "JEE", "style": "A", "teamBonus": { "tyloo": 8 }, "scores": { "discipline": 3, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 3, "clutch": 1, "economy": 1 } }
       ]
     },
     {
@@ -217,8 +217,8 @@
       "options": [
         { "label": "我对这个队伍有情感", "style": "A", "teamBonus": { "navi": 4, "astralis": 4, "parivision": -4, "falcons": -5, "spirit": -4, "furia": -4, "mongolz": -4, "tyloo": 6 }, "scores": { "discipline": 4, "weapon": 0, "breakthrough": -2, "setup": 2, "tactics": 4, "clutch": 1, "economy": 1 } },
         { "label": "队里有我喜欢的明星选手", "style": "B", "teamBonus": { "spirit": 4, "g2": 4, "falcons": 3, "vitality": 2, "astralis": -2, "parivision": -2 }, "scores": { "discipline": -4, "weapon": -2, "breakthrough": 4, "setup": -1, "tactics": -3, "clutch": 2, "economy": -1 } },
-        { "label": "队伍的战术配合太好看了", "style": "C", "teamBonus": { "vitality": 3, "faze": -3, "navi": 3, "parivision": 4, "falcons": -2, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 1, "weapon": 5, "breakthrough": -2, "setup": 1, "tactics": 2, "clutch": 4, "economy": 1 } },
-        { "label": "我有恋老癖", "style": "D", "teamBonus": { "astralis": 4, "faze": 4, "falcons": -4, "furia": -4, "mongolz": -4, "spirit": -3, "tyloo": -3, "parivision": -2, "vitality": -2 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 2, "economy": 0 } }
+        { "label": "我就喜欢青春风暴", "style": "C", "teamBonus": { "mouz": 4, "faze": -4, "navi": 2, "parivision": 4, "mongolz": 6, "furia": 3, "tyloo": 3 }, "scores": { "discipline": 1, "weapon": 5, "breakthrough": -2, "setup": 1, "tactics": 2, "clutch": 4, "economy": 1 } },
+        { "label": "我有恋老癖", "style": "D", "teamBonus": { "astralis": 6, "faze": 6, "falcons": -4, "furia": -4, "mongolz": -4, "spirit": -3, "tyloo": -3, "parivision": -2, "vitality": -2 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 2, "economy": 0 } }
       ]
     },
     {
@@ -227,7 +227,7 @@
       "options": [
         { "label": "明星狙击手的高光甩狙", "style": "C", "teamBonus": { "vitality": 4, "furia": 6,  "faze": -3, "navi": 6, "falcons": 6 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 1, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
         { "label": "步枪手的暴力突破", "style": "B", "teamBonus": { "spirit": 4, "falcons": 4, "mongolz": 3 }, "scores": { "discipline": -4, "weapon": -4, "breakthrough": 5, "setup": -2, "tactics": -3, "clutch": -1, "economy": -1 } },
-        { "label": "优雅的爆弹与战术配合进点", "style": "A", "teamBonus": { "parivision": 4, "navi": 4, "astralis": 4, "vitality": 3, "faze": -5, "falcons": -2, "spirit": -2, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 5, "clutch": 2, "economy": 1 } },
+        { "label": "优雅的爆弹与战术配合进点", "style": "A", "teamBonus": { "parivision": 4, "navi": 4, "astralis": 4, "vitality": 3, "faze": -5, "spirit": -2, "furia": -2, "tyloo": -2 }, "scores": { "discipline": 4, "weapon": 0, "breakthrough": -1, "setup": 2, "tactics": 5, "clutch": 2, "economy": 1 } },
         { "label": "阴暗的自由人操作", "style": "D", "teamBonus": { "faze": 3, "vitality": 3, "furia": 2 }, "scores": { "discipline": -1, "weapon": -1, "breakthrough": 2, "setup": -4, "tactics": 2, "clutch": 4, "economy": 1 } }
       ]
     },
@@ -245,10 +245,10 @@
       "title": "10. 你更喜欢哪一个名场面？",
       "weight": 1.2,
       "options": [
-        { "label": "中门鸟狙爆头载物", "style": "C", "teamBonus": { "falcons": 3 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 2, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
-        { "label": "apex世界级扫转", "style": "D", "teamBonus": { "vitality": 3 }, "scores": { "discipline": 1, "weapon": 1, "breakthrough": 3, "setup": 1, "tactics": 2, "clutch": 2, "economy": 0 } },
-        { "label": "donk mirage 1v5", "style": "B", "teamBonus": { "spirit": 3 }, "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": -1, "clutch": 4, "economy": -1 } },
-        { "label": "总监外场最速传说", "style": "D", "teamBonus": { "faze": 3 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 4, "setup": -2, "tactics": 1, "clutch": 3, "economy": 0 } }
+        { "label": "中门鸟狙爆头载物", "style": "C", "teamBonus": { "falcons": 4 }, "scores": { "discipline": 0, "weapon": 5, "breakthrough": 2, "setup": 1, "tactics": 1, "clutch": 3, "economy": 0 } },
+        { "label": "apex世界级扫转", "style": "D", "teamBonus": { "vitality": 4 }, "scores": { "discipline": 1, "weapon": 1, "breakthrough": 3, "setup": 1, "tactics": 2, "clutch": 2, "economy": 0 } },
+        { "label": "donk mirage 1v5", "style": "B", "teamBonus": { "spirit": 4 }, "scores": { "discipline": -2, "weapon": -1, "breakthrough": 5, "setup": -1, "tactics": -1, "clutch": 4, "economy": -1 } },
+        { "label": "总监外场最速传说", "style": "D", "teamBonus": { "faze": 4 }, "scores": { "discipline": -1, "weapon": 0, "breakthrough": 4, "setup": -2, "tactics": 1, "clutch": 3, "economy": 0 } }
       ]
     }
   ],

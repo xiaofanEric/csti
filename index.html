@@ -18,7 +18,7 @@
       --primary: #1f3a70;
       --accent: #b9551e;
       --shadow: 0 10px 20px rgba(17, 24, 39, 0.08);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", "Microsoft YaHei UI", "PingFang SC", Tahoma, Geneva, Verdana, sans-serif;
     }
 
     * { box-sizing: border-box; }
@@ -55,6 +55,22 @@
       margin: 6px 0 0;
       max-width: 640px;
       line-height: 1.6;
+    }
+
+    .author-line {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .author-link {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .author-link:hover {
+      text-decoration: underline;
     }
 
     .card {
@@ -97,8 +113,8 @@
 
     .question-title {
       font-size: 1.2rem;
-      margin: 0 0 18px;
-      line-height: 1.5;
+      margin: 0 0 12px;
+      line-height: 1.45;
     }
 
     .options {
@@ -137,7 +153,7 @@
       flex-wrap: wrap;
       gap: 12px;
       justify-content: flex-end;
-      margin-top: 24px;
+      margin-top: 16px;
     }
 
     .button {
@@ -169,14 +185,270 @@
 
     .results {
       display: grid;
-      gap: 16px;
+      gap: 10px;
     }
 
     .result-item {
       border-radius: 10px;
-      padding: 18px 20px;
+      padding: 12px 14px;
       background: #f8f9fb;
       border: 1px solid rgba(17, 24, 39, 0.08);
+    }
+
+    .results.themed .result-item {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.84));
+      border-color: rgba(17, 24, 39, 0.08);
+      box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+    }
+
+    .team-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 0;
+      color: #fff !important;
+      border: none !important;
+      background-color: var(--team-secondary, #111827);
+      background-image:
+        radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0.18) 7%, transparent 8%),
+        radial-gradient(circle at 84% 16%, rgba(255, 255, 255, 0.12) 0, rgba(255, 255, 255, 0.12) 9%, transparent 10%),
+        linear-gradient(135deg, var(--team-primary, #1f3a70), var(--team-secondary, #111827) 58%, var(--team-accent, #b9551e));
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      box-shadow: 0 18px 34px rgba(17, 24, 39, 0.18);
+    }
+
+    .team-hero * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-hero::before,
+    .team-hero::after {
+      content: '';
+      position: absolute;
+      inset: auto;
+      border-radius: 999px;
+      filter: blur(6px);
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .team-hero::before {
+      width: 180px;
+      height: 180px;
+      right: -30px;
+      bottom: -40px;
+      background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 70%);
+    }
+
+    .team-hero::after {
+      width: 240px;
+      height: 240px;
+      left: -40px;
+      top: 30px;
+      background: radial-gradient(circle, rgba(255,255,255,0.35), transparent 72%);
+    }
+
+    .team-hero-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+      gap: 24px;
+      align-items: center;
+      padding: 22px;
+    }
+
+    .team-hero-copy {
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      max-width: 560px;
+    }
+
+    .team-copy-main {
+      display: grid;
+      gap: 12px;
+    }
+
+    .team-photo-panel {
+      position: relative;
+      width: min(100%, 336px);
+      height: 336px;
+      min-height: 336px;
+      justify-self: end;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
+      box-shadow: 14px 18px 34px rgba(0,0,0,0.26), inset 0 1px 0 rgba(255,255,255,0.12);
+      backdrop-filter: blur(4px);
+    }
+
+    .team-player-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: var(--photo-position, center top);
+      transform: scale(var(--photo-scale, 1));
+      display: block;
+      filter: saturate(1.06) contrast(1.04);
+    }
+
+    .team-photo-label {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(8,12,24,0.5);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.92);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .team-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      max-width: 500px;
+    }
+
+    .team-heading {
+      display: grid;
+      gap: 6px;
+    }
+
+    .team-badge {
+      width: 78px;
+      height: 78px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(4px);
+    }
+
+    .team-logo-shell {
+      width: 78px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      flex: 0 0 auto;
+    }
+
+    .team-logo {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      display: block;
+      filter: var(--team-logo-filter, drop-shadow(0 3px 8px rgba(0,0,0,0.25)));
+    }
+
+    .team-mini-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 0;
+    }
+
+    .team-mini-rank {
+      width: 24px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .team-mini-logo-shell {
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      overflow: visible;
+      flex: 0 0 auto;
+    }
+
+    .team-mini-logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+      filter: var(--team-mini-logo-filter, drop-shadow(0 2px 6px rgba(0,0,0,0.24)));
+    }
+
+    .team-kicker {
+      margin: 0 0 4px;
+      font-size: 0.86rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .team-name {
+      margin: 0;
+      font-size: clamp(1.95rem, 2.8vw, 3rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      font-family: "Arial Black", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+      color: #fff;
+      text-shadow: 0 4px 18px rgba(0,0,0,0.28);
+    }
+
+    .team-tagline {
+      margin: 0;
+      color: rgba(255,255,255,0.92);
+      line-height: 1.42;
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .team-description {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: rgba(255,255,255,0.96);
+      line-height: 1.6;
+      max-width: 560px;
+      font-size: 1rem;
+    }
+
+    .team-meta {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      max-width: 560px;
+    }
+
+    .team-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.88rem;
     }
 
     .result-title {
@@ -194,6 +466,32 @@
       margin-top: 10px;
       color: var(--muted);
       font-size: 0.92rem;
+    }
+
+    .share-inline-panel {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,255,255,0.62));
+      border: 1px solid rgba(17, 24, 39, 0.08);
+    }
+
+    .share-inline-title {
+      margin: 0 0 6px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .share-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .share-inline-actions .button {
+      flex: 1 1 180px;
     }
 
     .dimension-row {
@@ -255,9 +553,49 @@
     }
 
     @media (max-width: 640px) {
-      .card { padding: 20px; }
-      .actions { justify-content: stretch; }
-      .button { width: 100%; }
+      .page {
+        padding: 16px 12px 88px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .question-title {
+        font-size: 1.1rem;
+      }
+
+      .option-button {
+        min-height: 64px;
+        padding: 14px 15px;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .actions {
+        justify-content: stretch;
+        position: sticky;
+        bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+        z-index: 10;
+        margin-top: 16px;
+        padding-top: 10px;
+        background: linear-gradient(180deg, rgba(248,242,232,0), rgba(248,242,232,0.94) 22%, rgba(248,242,232,0.99));
+      }
+
+      .button {
+        width: auto;
+        flex: 1 1 calc(50% - 6px);
+        min-height: 48px;
+        padding: 12px 14px;
+        font-size: 1rem;
+      }
+
+      .team-hero-layout { grid-template-columns: 1fr; }
+      .team-photo-panel {
+        width: 100%;
+        height: 300px;
+        min-height: 300px;
+      }
     }
   </style>
 </head>
@@ -267,6 +605,7 @@
       <div>
         <h1 class="title">CS 主队偏好测试</h1>
         <p class="subtitle">10 道核心单选题，必要时自动加试，让结果更贴近你真正偏爱的队伍风格。</p>
+        <p class="author-line">作者：<a class="author-link" href="https://space.bilibili.com/510972932" target="_blank" rel="noopener noreferrer">小凡Eric</a></p>
       </div>
       <div class="progress" aria-label="进度">
         <div class="progress-text" id="progressText">加载中…</div>
@@ -301,6 +640,133 @@
     let tiebreakerOptionOrders = [];
     let tiebreakerQuestionOrder = [];
     let latestResultSnapshot = null;
+    let previewTeamId = null;
+    let lastRandomPreviewTeamId = null;
+
+    const DEFAULT_UI_THEME = {
+      primary: '#1f3a70',
+      secondary: '#111827',
+      accent: '#b9551e',
+      pageBg: '#f8f2e8',
+      card: '#ffffff',
+      cardAlt: '#fbf6ef',
+      badge: 'CS',
+      logo: '',
+      bgImage: '',
+      tagline: '你的观赛气质正在成形。'
+    };
+
+    const TEAM_VISUALS = {
+      vitality: { primary: '#e4c94f', uiPrimary: '#c39a16', secondary: '#34290f', accent: '#ffe384', pageBg: '#faf4de', cardAlt: '#f4e8bf', badge: 'VIT', logo: ['assets/logos/vitality.webp', 'assets/logos/vitality.svg'], miniLogo: ['assets/logos/vitality.webp', 'assets/logos/vitality.svg'], logoFilter: 'brightness(0) invert(1) saturate(0) drop-shadow(0 3px 8px rgba(0,0,0,0.25))', miniLogoFilter: 'brightness(0) saturate(0) drop-shadow(0 2px 6px rgba(0,0,0,0.24))', logoCanvasFilter: 'brightness(0) invert(1) saturate(0)', bgImage: 'assets/backgrounds/vitality.png', bgSize: 'cover', bgPosition: '68% center', bgRepeat: 'no-repeat', bgOpacity: 0.42, tagline: '蜂群压境，干脆、致命、充满终结感。' },
+      faze: { primary: '#b9575c', uiPrimary: '#9a484e', secondary: '#241317', accent: '#e0a3aa', pageBg: '#f8ebed', cardAlt: '#f0dde0', badge: 'FZ', logo: ['assets/logos/faze.webp', 'assets/logos/faze.svg'], bgImage: 'assets/backgrounds/faze.png', tagline: '星味拉满，残局和个人英雄主义直接爆表。' },
+      falcons: { primary: '#27b285', uiPrimary: '#1e8d69', secondary: '#173123', accent: '#86e8cf', pageBg: '#e9f6f0', cardAlt: '#dcf0e6', badge: 'FLC', logo: ['assets/logos/falcons.webp', 'assets/logos/falcons.svg'], bgImage: 'assets/backgrounds/falcons.png', bgSize: 'cover', bgPosition: 'center center', bgRepeat: 'no-repeat', bgOpacity: 0.5, photo: ['assets/players/falcons.png', 'assets/players/falcons.svg'], photoPosition: '50% 8%', photoScale: 1, sharePhotoX: 0.5, sharePhotoY: 0.05, tagline: '锋芒很直，火力更硬，出手就是重拳。' },
+      furia: { primary: '#e1e4e7', uiPrimary: '#6b727b', secondary: '#222426', accent: '#a2a8ae', pageBg: '#f1f3f4', cardAlt: '#e8ebee', badge: 'FR', logo: ['assets/logos/furia.svg', 'assets/logos/furia.webp'], logoFilter: 'drop-shadow(0 0 4px rgba(255,255,255,0.5)) drop-shadow(0 0 9px rgba(255,255,255,0.24))', logoCanvasShadowColor: 'rgba(255,255,255,0.45)', logoCanvasShadowBlur: 9, logoCanvasShadowOffsetY: 0, bgImage: 'assets/backgrounds/furia.png', shareBgFocusX: 0.72, tagline: '侵略性拉满，节奏一旦点燃就不回头。' },
+      spirit: { primary: '#f5f7fa', uiPrimary: '#4b73d9', secondary: '#10151c', accent: '#9da7b5', pageBg: '#eef1f5', cardAlt: '#e2e7ee', badge: 'SPR', logo: ['assets/logos/spirit.webp', 'assets/logos/spirit.svg'], miniLogo: ['assets/logos/spirit.webp', 'assets/logos/spirit.svg'], logoFilter: 'brightness(0) invert(1) saturate(0) drop-shadow(0 3px 8px rgba(0,0,0,0.25))', miniLogoFilter: 'brightness(0) saturate(0) drop-shadow(0 2px 6px rgba(0,0,0,0.24))', logoCanvasFilter: 'brightness(0) invert(1) saturate(0)', bgImage: 'assets/backgrounds/spirit.png', tagline: '年轻、凌厉、手感一热就是整场统治。' },
+      tyloo: { primary: '#d55a4f', uiPrimary: '#b14840', secondary: '#2a1715', accent: '#f4b09b', pageBg: '#fae9e6', cardAlt: '#f3dbd4', badge: 'TY', logo: ['assets/logos/tyloo.svg', 'assets/logos/tyloo.webp'], bgImage: 'assets/backgrounds/tyloo.png', tagline: '热血拉满，冲劲和情绪感染力都很上头。' },
+      parivision: { primary: '#36bcc1', uiPrimary: '#26949a', secondary: '#123036', accent: '#86e6e8', pageBg: '#e8f7f7', cardAlt: '#dbf1f2', badge: 'PARI', logo: ['assets/logos/parivision.webp', 'assets/logos/parivision.svg'], bgImage: 'assets/backgrounds/parivision.png', tagline: '像开了上帝视角，总能更早一步看懂对手。' },
+      navi: { primary: '#f0d436', uiPrimary: '#c29b08', secondary: '#34290f', accent: '#ffe978', pageBg: '#fbf6df', cardAlt: '#f7edbd', badge: 'NAVI', logo: ['assets/logos/navi.svg', 'assets/logos/navi.webp'], bgImage: 'assets/backgrounds/navi.png', tagline: '黄黑之下是硬度与压迫，关键局不讲情面。' },
+      astralis: { primary: '#cf5b54', uiPrimary: '#ac4b46', secondary: '#281416', accent: '#f4a79f', pageBg: '#f9e8e5', cardAlt: '#f2dad4', badge: 'AST', logo: ['assets/logos/astralis.svg', 'assets/logos/astralis.webp'], bgImage: 'assets/backgrounds/astralis.png', tagline: '纪律、秩序、执行力，像钟表一样冷静。' },
+      mongolz: { primary: '#c5a65b', uiPrimary: '#9f813d', secondary: '#241b0f', accent: '#e8ca8b', pageBg: '#f7f0e0', cardAlt: '#eee2c5', badge: 'MGLZ', logo: ['assets/logos/mongolz.webp', 'assets/logos/mongolz.svg'], bgImage: 'assets/backgrounds/mongolz.png', shareBgFocusX: 0.24, tagline: '草原骑兵式的爆发感，凶猛而直接。' },
+      mouz: { primary: '#cf504f', uiPrimary: '#b13f40', secondary: '#231414', accent: '#f28d8d', pageBg: '#f9e7e7', cardAlt: '#f2d7d7', badge: 'MOUZ', logo: ['assets/logos/mouz.svg', 'assets/logos/mouz.webp'], bgImage: 'assets/backgrounds/mouz.png', tagline: '年轻锐利，干净利落，打起来很有现代感。' },
+      g2: { primary: '#d2605c', uiPrimary: '#9b5858', secondary: '#201416', accent: '#f0ecea', pageBg: '#f5efee', cardAlt: '#ede2e0', badge: 'G2', logo: ['assets/logos/g2.webp', 'assets/logos/g2.svg'], bgImage: 'assets/backgrounds/g2.png', tagline: '欧洲武士锋芒毕露，优雅、锋利、无比致命。' }
+    };
+
+    function getTeamTheme(teamId) {
+      return TEAM_VISUALS[teamId] || DEFAULT_UI_THEME;
+    }
+
+    function getLogoSources(logoValue) {
+      if (!logoValue) return [];
+      return Array.isArray(logoValue) ? logoValue.filter(Boolean) : [logoValue];
+    }
+
+    function getPrimaryLogoPath(theme) {
+      return getLogoSources(theme?.logo)[0] || '';
+    }
+
+    function getLogoFallbacks(theme) {
+      return getLogoSources(theme?.logo).slice(1).join('|');
+    }
+
+    function getPrimaryMiniLogoPath(theme) {
+      return getLogoSources(theme?.miniLogo || theme?.logo)[0] || '';
+    }
+
+    function getMiniLogoFallbacks(theme) {
+      return getLogoSources(theme?.miniLogo || theme?.logo).slice(1).join('|');
+    }
+
+    function getTeamPhotoSources(teamId, theme) {
+      if (theme?.photo) return getLogoSources(theme.photo);
+      if (!teamId) return ['assets/players/default-player.svg'];
+      return [
+        `assets/players/${teamId}.png`,
+        `assets/players/${teamId}.webp`,
+        `assets/players/${teamId}.jpg`,
+        `assets/players/${teamId}.avif`,
+        `assets/players/${teamId}.svg`,
+        'assets/players/default-player.svg'
+      ];
+    }
+
+    function getTeamBackgroundSources(teamId, theme) {
+      const inferred = teamId ? [
+        `assets/backgrounds/${teamId}.png`,
+        `assets/backgrounds/${teamId}.webp`,
+        `assets/backgrounds/${teamId}.jpg`,
+        `assets/backgrounds/${teamId}.jpeg`,
+        `assets/backgrounds/${teamId}.svg`
+      ] : [];
+      const declared = getLogoSources(theme?.bgImage);
+      return [...new Set([...inferred, ...declared])];
+    }
+
+    function getBackgroundCssUrls(teamId, theme) {
+      return getTeamBackgroundSources(teamId, theme).map(src => `url('${src}')`).join(', ');
+    }
+
+    function getPrimaryTeamPhotoPath(teamId, theme) {
+      return getTeamPhotoSources(teamId, theme)[0] || '';
+    }
+
+    function getTeamPhotoFallbacks(teamId, theme) {
+      return getTeamPhotoSources(teamId, theme).slice(1).join('|');
+    }
+
+    function handleLogoError(img) {
+      const fallbacks = (img.dataset.fallbacks || '').split('|').filter(Boolean);
+      if (fallbacks.length) {
+        const nextPath = fallbacks.shift();
+        img.dataset.fallbacks = fallbacks.join('|');
+        img.src = nextPath;
+        return;
+      }
+
+      img.style.display = 'none';
+      const badge = img.parentNode?.querySelector('.team-badge');
+      if (badge) badge.style.display = 'flex';
+    }
+
+    async function loadFirstAvailableImage(logoValue) {
+      for (const src of getLogoSources(logoValue)) {
+        try {
+          return await loadImage(src);
+        } catch {
+          continue;
+        }
+      }
+      return null;
+    }
+
+    function applyUiTheme(theme = DEFAULT_UI_THEME) {
+      const activeTheme = theme || DEFAULT_UI_THEME;
+      const root = document.documentElement;
+      root.style.setProperty('--bg', activeTheme.pageBg || DEFAULT_UI_THEME.pageBg);
+      root.style.setProperty('--card', activeTheme.card || '#ffffff');
+      root.style.setProperty('--card-alt', activeTheme.cardAlt || '#fbf6ef');
+      root.style.setProperty('--primary', activeTheme.uiPrimary || activeTheme.primary || DEFAULT_UI_THEME.primary);
+      root.style.setProperty('--accent', activeTheme.uiAccent || activeTheme.accent || DEFAULT_UI_THEME.accent);
+    }
 
     function createNode(html) {
       const template = document.createElement('template');
@@ -325,6 +791,31 @@
       return shuffleArray(questionList.map((_, index) => index));
     }
 
+    function buildRandomAnswers(questionList) {
+      return questionList.map(question => Math.floor(Math.random() * question.options.length));
+    }
+
+    function showRandomPreview() {
+      if (!surveyData?.questions?.length || !surveyData?.teams?.length) return;
+      const teamIds = surveyData.teams.map(team => team.id).filter(Boolean);
+      const candidateIds = lastRandomPreviewTeamId && teamIds.length > 1
+        ? teamIds.filter(teamId => teamId !== lastRandomPreviewTeamId)
+        : teamIds;
+      previewTeamId = candidateIds[Math.floor(Math.random() * candidateIds.length)] || teamIds[0] || null;
+      lastRandomPreviewTeamId = previewTeamId;
+      hasStarted = false;
+      currentPhase = 'base';
+      currentIndex = 0;
+      answers = buildRandomAnswers(surveyData.questions);
+      tiebreakerQuestions = [];
+      tiebreakerAnswers = [];
+      tiebreakerQuestionOrder = [];
+      tiebreakerOptionOrders = [];
+      questionOrder = [];
+      optionOrders = [];
+      showResult();
+    }
+
     function getActiveQuestionSet() {
       if (currentPhase === 'tiebreaker') {
         return {
@@ -344,17 +835,21 @@
     }
 
     function renderStartScreen() {
+      applyUiTheme();
       progressText.textContent = '准备开始';
       progressFill.style.width = '0%';
       contentArea.innerHTML = `
         <h2 class="question-title">欢迎来到 CS 主队测试</h2>
-        <p class="subtitle" style="margin:0 0 20px;max-width:none;">通过 10 道核心题和少量加试题，测出你最接近的 CS 强队风格。</p>
+        <p class="subtitle" style="margin:0 0 10px;max-width:none;">通过 10 道核心题和少量加试题，测出你最接近的 CS 强队风格。</p>
+        <p class="share-tip" style="margin:0 0 20px;">如果你在调结果页样式，也可以直接随机预览一份结果。</p>
         <div class="actions" style="justify-content:flex-start;">
           <button class="button" id="startSurveyButton">开始测试</button>
+          <button class="button secondary" id="randomPreviewButton">随机结果展示</button>
         </div>
       `;
 
       document.getElementById('startSurveyButton').addEventListener('click', () => {
+        previewTeamId = null;
         hasStarted = true;
         currentPhase = 'base';
         currentIndex = 0;
@@ -366,6 +861,10 @@
         questionOrder = createQuestionOrder(surveyData.questions);
         optionOrders = createOptionOrders(surveyData.questions);
         renderQuestion();
+      });
+
+      document.getElementById('randomPreviewButton').addEventListener('click', () => {
+        showRandomPreview();
       });
     }
 
@@ -688,6 +1187,10 @@
       return '低';
     }
 
+    function isLeadingPunctuation(char) {
+      return /[，。！？；：、）》】〕」』’”]/.test(char || '');
+    }
+
     function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
       const chars = Array.from(text || '');
       let line = '';
@@ -696,8 +1199,13 @@
       chars.forEach(char => {
         const testLine = line + char;
         if (ctx.measureText(testLine).width > maxWidth && line) {
-          ctx.fillText(line, x, cursorY);
-          line = char;
+          if (isLeadingPunctuation(char)) {
+            ctx.fillText(testLine, x, cursorY);
+            line = '';
+          } else {
+            ctx.fillText(line, x, cursorY);
+            line = char;
+          }
           cursorY += lineHeight;
         } else {
           line = testLine;
@@ -710,6 +1218,67 @@
       }
 
       return cursorY;
+    }
+
+    function getWrappedLines(ctx, text, maxWidth) {
+      const chars = Array.from(text || '');
+      const lines = [];
+      let line = '';
+
+      chars.forEach(char => {
+        const testLine = line + char;
+        if (ctx.measureText(testLine).width > maxWidth && line) {
+          if (isLeadingPunctuation(char)) {
+            lines.push(testLine);
+            line = '';
+          } else {
+            lines.push(line);
+            line = char;
+          }
+        } else {
+          line = testLine;
+        }
+      });
+
+      if (line) lines.push(line);
+      return lines;
+    }
+
+    function drawCenteredCanvasText(ctx, text, centerX, centerY) {
+      const metrics = ctx.measureText(text);
+      const ascent = metrics.actualBoundingBoxAscent || 0;
+      const descent = metrics.actualBoundingBoxDescent || 0;
+      const visualCenterOffset = (ascent - descent) / 2;
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(text, centerX, centerY + visualCenterOffset);
+      ctx.restore();
+    }
+
+    function drawGlassPanel(ctx, sourceCanvas, x, y, width, height, radius = 24) {
+      ctx.save();
+      drawRoundedRectPath(ctx, x, y, width, height, radius);
+      ctx.clip();
+      ctx.filter = 'blur(18px)';
+      ctx.globalAlpha = 0.92;
+      ctx.drawImage(sourceCanvas, -14, -14, sourceCanvas.width + 28, sourceCanvas.height + 28);
+      ctx.restore();
+
+      ctx.save();
+      drawRoundedRectPath(ctx, x, y, width, height, radius);
+      ctx.fillStyle = 'rgba(255,255,255,0.7)';
+      ctx.fill();
+      const glassSheen = ctx.createLinearGradient(x, y, x, y + height);
+      glassSheen.addColorStop(0, 'rgba(255,255,255,0.24)');
+      glassSheen.addColorStop(0.4, 'rgba(255,255,255,0.11)');
+      glassSheen.addColorStop(1, 'rgba(255,255,255,0.16)');
+      ctx.fillStyle = glassSheen;
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.38)';
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+      ctx.restore();
     }
 
     function blobToDataUrl(blob) {
@@ -743,6 +1312,51 @@
       });
     }
 
+    function drawContainedImage(ctx, img, x, y, width, height, opacity = 1, focusX = 0.5, focusY = 0.5) {
+      if (!img?.width || !img?.height) return;
+      const scale = Math.max(width / img.width, height / img.height);
+      const drawWidth = img.width * scale;
+      const drawHeight = img.height * scale;
+      const offsetX = (width - drawWidth) * Math.min(Math.max(focusX, 0), 1);
+      const offsetY = (height - drawHeight) * Math.min(Math.max(focusY, 0), 1);
+      const drawX = x + offsetX;
+      const drawY = y + offsetY;
+
+      ctx.save();
+      ctx.globalAlpha = opacity;
+      ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      ctx.restore();
+    }
+
+    function drawRoundedRectPath(ctx, x, y, width, height, radius = 24) {
+      const r = Math.min(radius, width / 2, height / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + width, y, x + width, y + height, r);
+      ctx.arcTo(x + width, y + height, x, y + height, r);
+      ctx.arcTo(x, y + height, x, y, r);
+      ctx.arcTo(x, y, x + width, y, r);
+      ctx.closePath();
+    }
+
+    function drawRoundedCoverImage(ctx, img, x, y, width, height, radius = 24, opacity = 1, focusX = 0.5, focusY = 0.5, zoom = 1) {
+      if (!img?.width || !img?.height) return;
+      const scale = Math.max(width / img.width, height / img.height) * zoom;
+      const drawWidth = img.width * scale;
+      const drawHeight = img.height * scale;
+      const offsetX = (width - drawWidth) * Math.min(Math.max(focusX, 0), 1);
+      const offsetY = (height - drawHeight) * Math.min(Math.max(focusY, 0), 1);
+      const drawX = x + offsetX;
+      const drawY = y + offsetY;
+
+      ctx.save();
+      drawRoundedRectPath(ctx, x, y, width, height, radius);
+      ctx.clip();
+      ctx.globalAlpha = opacity;
+      ctx.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+      ctx.restore();
+    }
+
     function downloadBlob(blob, fileName) {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -755,111 +1369,301 @@
     }
 
     async function buildShareImage(snapshot) {
+      const theme = snapshot.theme || getTeamTheme(snapshot.teamId);
+      const uiPrimary = theme.uiPrimary || theme.primary || '#1f3a70';
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
       canvas.height = 1350;
       const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = '#f8f2e8';
+      const bgGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      bgGradient.addColorStop(0, theme.primary || '#0f172a');
+      bgGradient.addColorStop(0.58, theme.secondary || '#111827');
+      bgGradient.addColorStop(1, theme.accent || '#10b981');
+      ctx.fillStyle = bgGradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#1f3a70';
-      ctx.fillRect(60, 60, 960, 1230);
+      const backgroundSources = getTeamBackgroundSources(snapshot.teamId, theme);
+      if (backgroundSources.length) {
+        try {
+          const heroBg = await loadFirstAvailableImage(backgroundSources);
+          if (heroBg) {
+            drawContainedImage(
+              ctx,
+              heroBg,
+              0,
+              0,
+              canvas.width,
+              canvas.height,
+              Math.min(1, (theme.bgOpacity ?? 0.5) + 0.42),
+              theme.shareBgFocusX ?? 0.5,
+              theme.shareBgFocusY ?? 0.5
+            );
+          }
+        } catch (error) {
+          console.warn('theme background load failed', error);
+        }
+      }
 
+      const pageOverlay = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      pageOverlay.addColorStop(0, 'rgba(2,8,20,0.42)');
+      pageOverlay.addColorStop(0.58, 'rgba(2,8,20,0.58)');
+      pageOverlay.addColorStop(1, 'rgba(2,8,20,0.74)');
+      ctx.fillStyle = pageOverlay;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const heroCardX = 48;
+      const heroCardY = 52;
+      const heroCardWidth = 984;
+      const heroCardHeight = 612;
+      const heroInnerInset = 34;
+      const playerCardWidth = 295;
+      const playerCardInset = 32;
+      const playerCardX = heroCardX + heroCardWidth - playerCardWidth - playerCardInset;
+      const playerCardY = heroCardY + playerCardInset;
+      const playerCardHeight = heroCardHeight - playerCardInset * 2;
+      const statPillY = heroCardY + heroCardHeight - heroInnerInset - 64;
+
+      drawRoundedRectPath(ctx, heroCardX, heroCardY, heroCardWidth, heroCardHeight, 32);
+      ctx.fillStyle = 'rgba(4,10,20,0.34)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.24)';
+      ctx.shadowBlur = 22;
+      ctx.shadowOffsetX = 6;
+      ctx.shadowOffsetY = 10;
+      drawRoundedRectPath(ctx, playerCardX, playerCardY, playerCardWidth, playerCardHeight, 20);
+      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.fill();
+      ctx.restore();
+
+      const playerImage = await loadFirstAvailableImage(getTeamPhotoSources(snapshot.teamId, theme));
+      if (playerImage) {
+        drawRoundedCoverImage(
+          ctx,
+          playerImage,
+          playerCardX,
+          playerCardY,
+          playerCardWidth,
+          playerCardHeight,
+          20,
+          0.96,
+          theme.sharePhotoX ?? 0.5,
+          theme.sharePhotoY ?? 0.5,
+          theme.photoScale || 1
+        );
+        drawRoundedRectPath(ctx, playerCardX, playerCardY, playerCardWidth, playerCardHeight, 20);
+        ctx.fillStyle = 'rgba(2,8,20,0.12)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.16)';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      } else {
+        ctx.fillStyle = 'rgba(255,255,255,0.16)';
+        ctx.font = '700 32px Microsoft YaHei UI';
+        ctx.fillText('PLAYER', playerCardX + 75, playerCardY + playerCardHeight / 2);
+      }
+
+      drawRoundedRectPath(ctx, 82, 86, 96, 96, 24);
+      ctx.fillStyle = 'rgba(255,255,255,0.12)';
+      ctx.fill();
+
+      let drewLogo = false;
+      const logoImage = await loadFirstAvailableImage(theme.logo);
+      if (logoImage) {
+        ctx.save();
+        ctx.shadowColor = theme.logoCanvasShadowColor || 'rgba(0,0,0,0.28)';
+        ctx.shadowBlur = theme.logoCanvasShadowBlur ?? 10;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = theme.logoCanvasShadowOffsetY ?? 3;
+        if (theme.logoCanvasFilter) ctx.filter = theme.logoCanvasFilter;
+        ctx.drawImage(logoImage, 100, 104, 60, 60);
+        ctx.restore();
+        drewLogo = true;
+      }
+
+      if (!drewLogo) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 30px Segoe UI';
+        const badgeWidth = ctx.measureText(theme.badge || 'CS').width;
+        ctx.fillText(theme.badge || 'CS', 130 - badgeWidth / 2, 149);
+      }
+
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = '700 30px Microsoft YaHei UI';
+      ctx.fillText('你的主队结果', 196, 132);
+
+      ctx.save();
       ctx.fillStyle = '#ffffff';
-      ctx.fillRect(96, 96, 888, 1158);
+      ctx.shadowColor = 'rgba(0,0,0,0.35)';
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetY = 5;
+      ctx.font = '900 88px Arial Black';
+      ctx.fillText(snapshot.teamLabel, 82, 278);
+      ctx.restore();
 
-      ctx.fillStyle = '#1f3a70';
-      ctx.font = 'bold 46px Segoe UI';
-      ctx.fillText('CS 主队偏好测试结果', 140, 180);
+      const heroTextWidth = 560;
+      const taglineLineHeight = 44;
+      const descriptionLineHeight = 44;
+      const taglineStartY = 330;
 
-      ctx.fillStyle = '#b9551e';
-      ctx.font = 'bold 72px Segoe UI';
-      ctx.fillText(snapshot.teamLabel, 140, 290);
+      ctx.font = '700 32px Microsoft YaHei UI';
+      const taglineLines = getWrappedLines(ctx, theme.tagline || '你的观赛气质已经有了非常鲜明的方向。', heroTextWidth);
+      const taglineBlockHeight = Math.max(1, taglineLines.length) * taglineLineHeight;
 
-      ctx.fillStyle = '#111827';
-      ctx.font = '28px Segoe UI';
-      wrapCanvasText(ctx, snapshot.description, 140, 350, 560, 42);
+      ctx.font = '30px Microsoft YaHei UI';
+      const descriptionLines = getWrappedLines(ctx, snapshot.description, heroTextWidth);
+      const descriptionBlockHeight = Math.max(1, descriptionLines.length) * descriptionLineHeight;
 
-      ctx.fillStyle = '#4b5563';
-      ctx.font = '26px Segoe UI';
-      ctx.fillText(`主队接近度：${snapshot.percent}%`, 140, 500);
+      const heroSectionGap = Math.max(18, Math.floor((statPillY - taglineStartY - taglineBlockHeight - descriptionBlockHeight) / 2));
+      const descriptionStartY = taglineStartY + taglineBlockHeight + heroSectionGap;
 
-      ctx.fillStyle = '#111827';
-      ctx.font = 'bold 30px Segoe UI';
-      ctx.fillText('其他接近主队', 140, 610);
-      ctx.font = '24px Segoe UI';
-      ctx.fillStyle = '#4b5563';
-      snapshot.others.forEach((item, index) => {
-        ctx.fillText(`${index + 1}. ${item.label} · ${item.percent}%`, 140, 660 + index * 38);
+      ctx.fillStyle = 'rgba(255,255,255,0.95)';
+      ctx.font = '700 32px Microsoft YaHei UI';
+      taglineLines.forEach((line, index) => {
+        ctx.fillText(line, 82, taglineStartY + index * taglineLineHeight);
       });
 
-      ctx.fillStyle = '#fbf6ef';
-      ctx.fillRect(720, 220, 190, 190);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '30px Microsoft YaHei UI';
+      descriptionLines.forEach((line, index) => {
+        ctx.fillText(line, 82, descriptionStartY + index * descriptionLineHeight);
+      });
+
+      drawRoundedRectPath(ctx, heroCardX + heroInnerInset, statPillY, 248, 64, 32);
+      ctx.fillStyle = 'rgba(255,255,255,0.14)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 25px Microsoft YaHei UI';
+      drawCenteredCanvasText(ctx, `接近度 ${snapshot.percent}%`, heroCardX + heroInnerInset + 124, statPillY + 32);
+
+      drawRoundedRectPath(ctx, heroCardX + heroInnerInset + 266, statPillY, 282, 64, 32);
+      ctx.fillStyle = 'rgba(255,255,255,0.14)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 25px Microsoft YaHei UI';
+      drawCenteredCanvasText(ctx, '分享给朋友一起测', heroCardX + heroInnerInset + 266 + 141, statPillY + 32);
+
+      const lowerPanelX = 48;
+      const lowerPanelY = 690;
+      const lowerPanelWidth = 984;
+      const lowerPanelHeight = 612;
+      const lowerContentX = lowerPanelX + 48;
+      const lowerTitleY = lowerPanelY + 78;
+      const lowerListStartY = lowerTitleY + 56;
+
+      const lowerPanelSnapshot = document.createElement('canvas');
+      lowerPanelSnapshot.width = canvas.width;
+      lowerPanelSnapshot.height = canvas.height;
+      lowerPanelSnapshot.getContext('2d').drawImage(canvas, 0, 0);
+
+      drawGlassPanel(ctx, lowerPanelSnapshot, lowerPanelX, lowerPanelY, lowerPanelWidth, lowerPanelHeight, 32);
+
+      ctx.fillStyle = theme.secondary || '#111827';
+      ctx.font = '900 38px Microsoft YaHei UI';
+      ctx.fillText('其他接近主队', lowerContentX, lowerTitleY);
+      ctx.font = '28px Microsoft YaHei UI';
+      ctx.fillStyle = '#4b5563';
+      snapshot.others.forEach((item, index) => {
+        ctx.fillText(`${index + 1}. ${item.label} · ${item.percent}%`, lowerContentX + 2, lowerListStartY + index * 46);
+      });
+
+      ctx.font = '18px Microsoft YaHei UI';
+      const summaryLines = (snapshot.answers?.length
+        ? snapshot.answers.slice(0, 7).flatMap(line => getWrappedLines(ctx, `• ${line}`, 620))
+        : getWrappedLines(ctx, '• 你的观赛偏好非常鲜明，适合继续深挖主队风格。', 620)
+      ).slice(0, 8);
+      const summaryBottomY = lowerPanelY + lowerPanelHeight - 48;
+      const summaryLineHeight = 26;
+      const summaryStartY = Math.max(1068, summaryBottomY - (summaryLines.length - 1) * summaryLineHeight);
+      const summaryTitleY = summaryStartY - 32;
+      ctx.fillStyle = uiPrimary;
+      ctx.font = '800 34px Microsoft YaHei UI';
+      ctx.fillText('作答摘要', lowerContentX, summaryTitleY);
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '18px Microsoft YaHei UI';
+      summaryLines.forEach((line, index) => {
+        ctx.fillText(line, lowerContentX, summaryStartY + index * summaryLineHeight);
+      });
+
+      drawRoundedRectPath(ctx, 772, 766, 196, 196, 16);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
       const qrDataUrl = await getQrCodeDataUrl(snapshot.url);
       if (qrDataUrl) {
         try {
           const qrImage = await loadImage(qrDataUrl);
-          ctx.drawImage(qrImage, 720, 220, 190, 190);
+          ctx.drawImage(qrImage, 784, 778, 172, 172);
         } catch {
-          ctx.fillStyle = '#1f3a70';
-          ctx.fillRect(720, 220, 190, 190);
+          ctx.fillStyle = '#e5e7eb';
+          ctx.fillRect(784, 778, 172, 172);
         }
       }
 
-      ctx.fillStyle = '#1f3a70';
-      ctx.font = '24px Segoe UI';
-      ctx.fillText('扫码自己测', 740, 440);
-
+      ctx.fillStyle = theme.secondary || '#111827';
+      ctx.font = '700 24px Microsoft YaHei UI';
+      ctx.fillText('扫码参与测试', 790, 998);
       ctx.fillStyle = '#4b5563';
-      ctx.font = '24px Segoe UI';
-      let answerY = wrapCanvasText(ctx, '我测出来的主队是这支，你也来试试。', 140, 870, 760, 38);
-
-      if (snapshot.answers?.length) {
-        ctx.fillStyle = '#111827';
-        ctx.font = 'bold 22px Segoe UI';
-        ctx.fillText('作答记录', 140, answerY + 18);
-        ctx.fillStyle = '#4b5563';
-        ctx.font = '17px Segoe UI';
-        answerY += 52;
-        snapshot.answers.slice(0, 14).forEach(line => {
-          answerY = wrapCanvasText(ctx, `• ${line}`, 140, answerY, 760, 24);
-        });
-      }
+      ctx.font = '20px Microsoft YaHei UI';
+      wrapCanvasText(ctx, '我测出来的主队是这支，你也来试试。', 780, 1042, 196, 31);
 
       return await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     }
 
-    async function shareResultImage() {
+    function setActionButtonState(buttonId, disabled, label) {
+      const button = document.getElementById(buttonId);
+      if (!button) return;
+      button.disabled = disabled;
+      if (label) button.textContent = label;
+    }
+
+    async function copyResultImage() {
       if (!latestResultSnapshot?.teamLabel) return;
-      const shareButton = document.getElementById('shareButton');
-      if (shareButton) {
-        shareButton.disabled = true;
-        shareButton.textContent = '正在生成分享图...';
-      }
+      setActionButtonState('copyShareButton', true, '正在复制...');
 
       try {
         const blob = await buildShareImage(latestResultSnapshot);
         if (!blob) throw new Error('生成图片失败');
-        const file = new File([blob], 'cs-team-result.png', { type: 'image/png' });
 
-        if (navigator.share && navigator.canShare?.({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: 'CS 主队测试结果',
-            text: `我测出来的主队是 ${latestResultSnapshot.teamLabel}`
-          });
+        if (navigator.clipboard?.write && window.ClipboardItem) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          alert('分享图已复制到剪切板。');
         } else {
-          downloadBlob(blob, 'cs-team-result.png');
+          alert('当前浏览器不支持直接复制图片，请使用导出分享图。');
         }
       } catch (error) {
         console.error(error);
-        alert('分享图生成失败，请稍后再试。');
+        alert('复制分享图失败，请稍后再试。');
       } finally {
-        if (shareButton) {
-          shareButton.disabled = false;
-          shareButton.textContent = '分享结果图';
-        }
+        setActionButtonState('copyShareButton', false, '复制分享图');
+      }
+    }
+
+    async function downloadResultImage() {
+      if (!latestResultSnapshot?.teamLabel) return;
+      setActionButtonState('downloadShareButton', true, '正在导出...');
+
+      try {
+        const blob = await buildShareImage(latestResultSnapshot);
+        if (!blob) throw new Error('生成图片失败');
+        downloadBlob(blob, 'cs-team-result.png');
+      } catch (error) {
+        console.error(error);
+        alert('导出分享图失败，请稍后再试。');
+      } finally {
+        setActionButtonState('downloadShareButton', false, '导出分享图');
       }
     }
 
@@ -882,7 +1686,20 @@
     function showResult() {
       calculateScores();
       const userNormalized = normalizeScores();
-      const teamMatches = calculateTeamMatches(userNormalized);
+      let teamMatches = calculateTeamMatches(userNormalized);
+
+      if (previewTeamId) {
+        const forcedMatch = teamMatches.find(team => team.id === previewTeamId);
+        if (forcedMatch) {
+          const leadingSimilarity = teamMatches[0]?.similarity || forcedMatch.similarity || 0;
+          const boostedMatch = {
+            ...forcedMatch,
+            similarity: Math.min(0.965, Math.max(forcedMatch.similarity || 0, leadingSimilarity + 0.01))
+          };
+          teamMatches = [boostedMatch, ...teamMatches.filter(team => team.id !== previewTeamId)];
+        }
+      }
+
       const topMatch = teamMatches[0];
       const getDisplayPercent = (match, rankIndex = 0) => {
         if (!match) return '0.0';
@@ -892,24 +1709,57 @@
       };
 
       contentArea.innerHTML = `
-        <h2 class="question-title">你的主队结果</h2>
         <div class="results" id="resultsContainer"></div>
-        <p class="share-tip">可以一键生成带二维码的分享图，方便发给朋友测同款。</p>
         <div class="actions">
           <button class="button secondary" id="restartButton">重新开始</button>
-          <button class="button" id="shareButton">分享结果图</button>
+          <button class="button secondary" id="randomResultButton">再随机一份</button>
         </div>
       `;
 
       const resultsContainer = document.getElementById('resultsContainer');
+      const theme = getTeamTheme(topMatch?.id);
+      resultsContainer.classList.add('themed');
+      resultsContainer.style.setProperty('--team-primary', theme.primary || DEFAULT_UI_THEME.primary);
+      resultsContainer.style.setProperty('--team-secondary', theme.secondary || DEFAULT_UI_THEME.secondary);
+      resultsContainer.style.setProperty('--team-accent', theme.accent || DEFAULT_UI_THEME.accent);
+      applyUiTheme(theme);
 
       if (topMatch) {
+        const backgroundUrls = getBackgroundCssUrls(topMatch.id, theme);
+        const backgroundLayersCount = getTeamBackgroundSources(topMatch.id, theme).length;
+        const backgroundSizeValue = Array.from({ length: backgroundLayersCount }, () => theme.bgSize || 'cover').join(', ');
+        const backgroundPositionValue = Array.from({ length: backgroundLayersCount }, () => theme.bgPosition || 'center').join(', ');
+        const backgroundRepeatValue = Array.from({ length: backgroundLayersCount }, () => theme.bgRepeat || 'no-repeat').join(', ');
+        const heroStyle = backgroundUrls
+          ? `--team-primary:${theme.primary};--team-secondary:${theme.secondary};--team-accent:${theme.accent};--team-logo-filter:${theme.logoFilter || 'drop-shadow(0 3px 8px rgba(0,0,0,0.25))'};background-color:${theme.secondary};background-image:linear-gradient(rgba(8,12,24,0.12), rgba(8,12,24,0.28)), ${backgroundUrls};background-size:cover, ${backgroundSizeValue};background-position:center, ${backgroundPositionValue};background-repeat:no-repeat, ${backgroundRepeatValue};color:#fff;`
+          : `--team-primary:${theme.primary};--team-secondary:${theme.secondary};--team-accent:${theme.accent};--team-logo-filter:${theme.logoFilter || 'drop-shadow(0 3px 8px rgba(0,0,0,0.25))'};background-color:${theme.secondary};background-image:linear-gradient(135deg, ${theme.primary}, ${theme.secondary} 58%, ${theme.accent});color:#fff;`;
+
         const matchCard = createNode(`
-          <div class="result-item">
-            <h3 class="result-title">你的主队：${topMatch.label}</h3>
-            <p class="result-description">${topMatch.description}</p>
-            <p class="result-description">主队接近度：${getDisplayPercent(topMatch, 0)}%</p>
-            ${tiebreakerQuestions.length ? '<p class="result-description">本次结果已启用加试题进一步区分接近战队。</p>' : ''}
+          <div class="result-item team-hero" style="${heroStyle}">
+            <div class="team-hero-layout">
+              <div class="team-hero-copy">
+                <div class="team-copy-main">
+                  <div class="team-brand">
+                    <div class="team-logo-shell">
+                      ${getPrimaryLogoPath(theme) ? `<img class="team-logo" src="${getPrimaryLogoPath(theme)}" data-fallbacks="${getLogoFallbacks(theme)}" alt="${topMatch.label} 队标" onerror="handleLogoError(this)">` : ''}
+                      <div class="team-badge" style="${getPrimaryLogoPath(theme) ? 'display:none;' : ''}color:#fff;">${theme.badge || 'CS'}</div>
+                    </div>
+                    <div class="team-heading" style="min-width:220px;">
+                      <h3 class="team-name" style="color:#fff;">${topMatch.label}</h3>
+                      <p class="team-tagline" style="color:rgba(255,255,255,0.92);">${theme.tagline || '你的观赛气质已经有了鲜明归属。'}</p>
+                    </div>
+                  </div>
+                  <p class="team-description" style="color:rgba(255,255,255,0.96);">${topMatch.description}</p>
+                </div>
+                <div class="team-meta">
+                  <span class="team-chip" style="color:#fff;">主队接近度 · ${getDisplayPercent(topMatch, 0)}%</span>
+                  ${tiebreakerQuestions.length ? '<span class="team-chip" style="color:#fff;">已启用加试题细分结果</span>' : '<span class="team-chip" style="color:#fff;">主题海报已启用</span>'}
+                </div>
+              </div>
+              <div class="team-photo-panel" style="--photo-position:${theme.photoPosition || 'center top'};--photo-scale:${theme.photoScale || 1};">
+                <img class="team-player-photo" src="${getPrimaryTeamPhotoPath(topMatch.id, theme)}" data-fallbacks="${getTeamPhotoFallbacks(topMatch.id, theme)}" alt="${topMatch.label} 选手图" onerror="handleLogoError(this)">
+              </div>
+            </div>
           </div>
         `);
         resultsContainer.appendChild(matchCard);
@@ -919,13 +1769,30 @@
         <div class="result-item">
           <h3 class="result-title">其他接近主队</h3>
           <ul id="candidateList" style="margin:0;padding-left:18px;color:var(--muted);"></ul>
+          <div class="share-inline-panel">
+            <p class="share-inline-title">分享结果图</p>
+            <p class="share-tip" style="margin:0;">一键复制或导出分享图，别人一眼就能扫二维码来测。</p>
+            <div class="share-inline-actions">
+              <button class="button secondary" id="copyShareButton">复制分享图</button>
+              <button class="button" id="downloadShareButton">导出分享图</button>
+            </div>
+          </div>
         </div>
       `);
       resultsContainer.appendChild(candidateCard);
       const candidateList = candidateCard.querySelector('#candidateList');
       teamMatches.slice(1, 4).forEach((team, index) => {
-        const item = document.createElement('li');
-        item.textContent = `${team.label} · 接近度 ${getDisplayPercent(team, index + 1)}%`;
+        const otherTheme = getTeamTheme(team.id);
+        const item = createNode(`
+          <li class="team-mini-row">
+            <span class="team-mini-rank">${index + 2}</span>
+            <span class="team-mini-logo-shell">
+              ${getPrimaryMiniLogoPath(otherTheme) ? `<img class="team-mini-logo" style="--team-mini-logo-filter:${otherTheme.miniLogoFilter || 'drop-shadow(0 2px 6px rgba(0,0,0,0.24))'};" src="${getPrimaryMiniLogoPath(otherTheme)}" data-fallbacks="${getMiniLogoFallbacks(otherTheme)}" alt="${team.label} 队标" onerror="handleLogoError(this)">` : `<span style="font-size:11px;font-weight:800;color:var(--primary);">${otherTheme.badge || 'CS'}</span>`}
+            </span>
+            <span style="flex:1;">${team.label}</span>
+            <strong style="color:var(--primary);">${getDisplayPercent(team, index + 1)}%</strong>
+          </li>
+        `);
         candidateList.appendChild(item);
       });
 
@@ -955,16 +1822,21 @@
         resultsContainer.appendChild(card);
       });
 
+      const shareTeamLabel = topMatch?.id === 'vitality' ? 'Vitality' : (topMatch?.label || '综合型');
+
       latestResultSnapshot = {
-        teamLabel: topMatch?.label || '综合型',
+        teamId: topMatch?.id || null,
+        teamLabel: shareTeamLabel,
         description: topMatch?.description || '你的观赛风格比较综合。',
         percent: topMatch ? getDisplayPercent(topMatch, 0) : '--',
         others: teamMatches.slice(1, 4).map((team, index) => ({ label: team.label, percent: getDisplayPercent(team, index + 1) })),
         answers: getAnswerSummaryLines(),
-        url: window.location.href
+        theme,
+        url: 'https://xiaofaneric.github.io/csti/'
       };
 
       document.getElementById('restartButton').addEventListener('click', () => {
+        previewTeamId = null;
         hasStarted = false;
         currentPhase = 'base';
         currentIndex = 0;
@@ -979,8 +1851,16 @@
         renderStartScreen();
       });
 
-      document.getElementById('shareButton').addEventListener('click', () => {
-        shareResultImage();
+      document.getElementById('copyShareButton').addEventListener('click', () => {
+        copyResultImage();
+      });
+
+      document.getElementById('downloadShareButton').addEventListener('click', () => {
+        downloadResultImage();
+      });
+
+      document.getElementById('randomResultButton').addEventListener('click', () => {
+        showRandomPreview();
       });
 
       progressText.textContent = '完成问卷';
