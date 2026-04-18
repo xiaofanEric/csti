@@ -285,9 +285,9 @@
       border-radius: 18px;
       overflow: hidden;
       border: 1px solid rgba(255,255,255,0.22);
-      background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
-      box-shadow: 14px 18px 34px rgba(0,0,0,0.26), inset 0 1px 0 rgba(255,255,255,0.12);
-      backdrop-filter: blur(4px);
+      background: transparent;
+      box-shadow: 14px 18px 30px rgba(0,0,0,0.22);
+      backdrop-filter: none;
     }
 
     .team-player-photo {
@@ -653,11 +653,12 @@
       }
 
       .result-view .team-name {
-        font-size: clamp(1.6rem, 7vw, 2.2rem);
-        line-height: 1.02;
+        font-size: clamp(1.82rem, 7.8vw, 2.6rem);
+        line-height: 1;
         font-weight: 900;
-        letter-spacing: 0.01em;
-        text-shadow: 0 5px 16px rgba(0,0,0,0.34);
+        font-family: "Arial Black", "Segoe UI Black", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+        letter-spacing: 0.015em;
+        text-shadow: 0 6px 18px rgba(0,0,0,0.38);
       }
 
       .result-view .team-tagline {
@@ -1569,12 +1570,12 @@
       ctx.stroke();
 
       ctx.save();
-      ctx.shadowColor = 'rgba(0,0,0,0.24)';
-      ctx.shadowBlur = 22;
-      ctx.shadowOffsetX = 6;
+      ctx.shadowColor = 'rgba(0,0,0,0.22)';
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetX = 5;
       ctx.shadowOffsetY = 10;
       drawRoundedRectPath(ctx, playerCardX, playerCardY, playerCardWidth, playerCardHeight, 20);
-      ctx.fillStyle = 'rgba(255,255,255,0.05)';
+      ctx.fillStyle = 'rgba(0,0,0,0.01)';
       ctx.fill();
       ctx.restore();
 
@@ -1594,8 +1595,6 @@
           theme.photoScale || 1
         );
         drawRoundedRectPath(ctx, playerCardX, playerCardY, playerCardWidth, playerCardHeight, 20);
-        ctx.fillStyle = 'rgba(2,8,20,0.12)';
-        ctx.fill();
         ctx.strokeStyle = 'rgba(255,255,255,0.16)';
         ctx.lineWidth = 1.2;
         ctx.stroke();
@@ -1636,10 +1635,13 @@
 
       ctx.save();
       ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+      ctx.lineWidth = 1.5;
       ctx.shadowColor = 'rgba(0,0,0,0.35)';
       ctx.shadowBlur = 18;
       ctx.shadowOffsetY = 5;
-      ctx.font = `900 88px ${CANVAS_HEAVY_FONT_FAMILY}`;
+      ctx.font = `900 94px ${CANVAS_HEAVY_FONT_FAMILY}`;
+      ctx.strokeText(snapshot.teamLabel, 82, 278);
       ctx.fillText(snapshot.teamLabel, 82, 278);
       ctx.restore();
 
