@@ -410,11 +410,14 @@
       margin: 0;
       font-size: clamp(1.95rem, 2.8vw, 3rem);
       line-height: 0.98;
-      letter-spacing: 0.015em;
-      font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei UI", sans-serif;
-      font-weight: 900;
+      letter-spacing: 0.01em;
+      font-family: "Arial Black", "Arial-BoldMT", Impact, "Segoe UI Black", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei UI", sans-serif;
+      font-weight: 900 !important;
       color: #fff;
-      text-shadow: 0 4px 18px rgba(0,0,0,0.28);
+      text-shadow:
+        0 1px 0 rgba(0,0,0,0.14),
+        0 2px 0 rgba(0,0,0,0.08),
+        0 4px 18px rgba(0,0,0,0.28);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -656,15 +659,23 @@
       }
 
       .result-view .team-name {
-        font-size: clamp(2rem, 8vw, 2.8rem);
-        line-height: 0.98;
+        display: inline-block;
+        font-size: clamp(2.1rem, 8.5vw, 3rem);
+        line-height: 0.96;
         font-weight: 900 !important;
-        font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei UI", sans-serif !important;
-        letter-spacing: 0.01em;
-        text-shadow: 0 6px 18px rgba(0,0,0,0.38);
-        -webkit-text-stroke: 0.35px rgba(0,0,0,0.16);
+        font-family: "Arial Black", "Arial-BoldMT", Impact, "Avenir Next Condensed Heavy", "Segoe UI Black", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei UI", sans-serif !important;
+        letter-spacing: 0;
+        text-shadow:
+          0 1px 0 rgba(0,0,0,0.22),
+          0 2px 0 rgba(0,0,0,0.16),
+          1px 0 0 rgba(0,0,0,0.12),
+          -1px 0 0 rgba(0,0,0,0.12),
+          0 6px 18px rgba(0,0,0,0.38);
+        -webkit-text-stroke: 0.8px rgba(0,0,0,0.18);
+        paint-order: stroke fill;
         -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
+        text-rendering: geometricPrecision;
+        transform: translateZ(0);
       }
 
       .result-view .team-tagline {
