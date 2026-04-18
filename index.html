@@ -410,10 +410,13 @@
       margin: 0;
       font-size: clamp(1.95rem, 2.8vw, 3rem);
       line-height: 0.98;
-      letter-spacing: 0.02em;
-      font-family: "Arial Black", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+      letter-spacing: 0.015em;
+      font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei UI", sans-serif;
+      font-weight: 900;
       color: #fff;
       text-shadow: 0 4px 18px rgba(0,0,0,0.28);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     .team-tagline {
@@ -653,12 +656,15 @@
       }
 
       .result-view .team-name {
-        font-size: clamp(1.82rem, 7.8vw, 2.6rem);
-        line-height: 1;
-        font-weight: 900;
-        font-family: "Arial Black", "Segoe UI Black", "Segoe UI", "Microsoft YaHei UI", sans-serif;
-        letter-spacing: 0.015em;
+        font-size: clamp(2rem, 8vw, 2.8rem);
+        line-height: 0.98;
+        font-weight: 900 !important;
+        font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei UI", sans-serif !important;
+        letter-spacing: 0.01em;
         text-shadow: 0 6px 18px rgba(0,0,0,0.38);
+        -webkit-text-stroke: 0.35px rgba(0,0,0,0.16);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
 
       .result-view .team-tagline {
