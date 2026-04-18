@@ -95,6 +95,10 @@
       font-size: 0.95rem;
     }
 
+    .progress-text:empty {
+      display: none;
+    }
+
     .progress-bar {
       flex: 1;
       height: 12px;
@@ -554,11 +558,11 @@
 
     @media (max-width: 640px) {
       .page {
-        padding: 16px 12px 88px;
+        padding: 12px 10px 24px;
       }
 
       .card {
-        padding: 16px;
+        padding: 12px;
       }
 
       .question-title {
@@ -574,12 +578,7 @@
 
       .actions {
         justify-content: stretch;
-        position: sticky;
-        bottom: calc(8px + env(safe-area-inset-bottom, 0px));
-        z-index: 10;
         margin-top: 16px;
-        padding-top: 10px;
-        background: linear-gradient(180deg, rgba(248,242,232,0), rgba(248,242,232,0.94) 22%, rgba(248,242,232,0.99));
       }
 
       .button {
@@ -590,11 +589,121 @@
         font-size: 1rem;
       }
 
-      .team-hero-layout { grid-template-columns: 1fr; }
-      .team-photo-panel {
+      .result-view .header {
+        display: none;
+      }
+
+      .result-view .page {
+        padding: 8px 8px 18px;
+      }
+
+      .result-view .card {
+        padding: 8px;
+        margin-bottom: 12px;
+      }
+
+      .result-view .actions {
+        position: static;
+        bottom: auto;
+        z-index: auto;
+        padding-top: 0;
+        background: none;
+      }
+
+      .result-view .result-item {
+        padding: 10px;
+      }
+
+      .result-view .team-hero-layout {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: stretch;
+        padding: 10px;
+      }
+
+      .result-view .team-hero-copy,
+      .result-view .team-copy-main {
+        gap: 10px;
+        max-width: none;
+      }
+
+      .result-view .team-brand {
+        gap: 10px;
+        max-width: none;
+        align-items: flex-start;
+      }
+
+      .result-view .team-heading {
+        min-width: 0 !important;
+        gap: 4px;
+      }
+
+      .result-view .team-logo-shell,
+      .result-view .team-badge {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+      }
+
+      .result-view .team-logo {
+        width: 46px;
+        height: 46px;
+      }
+
+      .result-view .team-name {
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+        line-height: 1.02;
+      }
+
+      .result-view .team-tagline {
+        font-size: 0.96rem;
+      }
+
+      .result-view .team-description,
+      .result-view .team-meta {
+        max-width: none;
+      }
+
+      .result-view .team-description {
+        font-size: 0.95rem;
+        line-height: 1.52;
+      }
+
+      .result-view .team-chip {
+        font-size: 0.84rem;
+        padding: 6px 10px;
+      }
+
+      .result-view .team-photo-panel {
         width: 100%;
-        height: 300px;
-        min-height: 300px;
+        height: 230px;
+        min-height: 230px;
+        justify-self: stretch;
+      }
+
+      .result-view .candidate-card {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .result-view .candidate-card .result-title {
+        order: 1;
+        margin-bottom: 0;
+      }
+
+      .result-view .candidate-card .share-inline-panel {
+        order: 2;
+        margin-top: 0;
+      }
+
+      .result-view .candidate-card #candidateList {
+        order: 3;
+        padding-left: 10px !important;
+      }
+
+      .result-view .share-inline-actions .button {
+        flex: 1 1 100%;
       }
     }
   </style>
@@ -642,6 +751,8 @@
     let latestResultSnapshot = null;
     let previewTeamId = null;
     let lastRandomPreviewTeamId = null;
+    const CANVAS_FONT_FAMILY = '"Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif';
+    const CANVAS_HEAVY_FONT_FAMILY = '"Arial Black", "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif';
 
     const DEFAULT_UI_THEME = {
       primary: '#1f3a70',
@@ -835,6 +946,7 @@
     }
 
     function renderStartScreen() {
+      document.body.classList.remove('result-view');
       applyUiTheme();
       progressText.textContent = '准备开始';
       progressFill.style.width = '0%';
@@ -869,6 +981,7 @@
     }
 
     function renderQuestion() {
+      document.body.classList.remove('result-view');
       const activeSet = getActiveQuestionSet();
       const total = activeSet.questions.length;
       const questionIndex = activeSet.orderRef[currentIndex] ?? currentIndex;
@@ -1357,6 +1470,16 @@
       ctx.restore();
     }
 
+    function isMobileLayout() {
+      return window.matchMedia('(max-width: 640px)').matches;
+    }
+
+    function getSaveButtonLabels() {
+      return isMobileLayout()
+        ? { idle: '保存到相册', busy: '正在保存...', error: '保存图片失败，请稍后再试。' }
+        : { idle: '导出分享图', busy: '正在导出...', error: '导出分享图失败，请稍后再试。' };
+    }
+
     function downloadBlob(blob, fileName) {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -1464,7 +1587,7 @@
         ctx.stroke();
       } else {
         ctx.fillStyle = 'rgba(255,255,255,0.16)';
-        ctx.font = '700 32px Microsoft YaHei UI';
+        ctx.font = `700 32px ${CANVAS_FONT_FAMILY}`;
         ctx.fillText('PLAYER', playerCardX + 75, playerCardY + playerCardHeight / 2);
       }
 
@@ -1488,13 +1611,13 @@
 
       if (!drewLogo) {
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 30px Segoe UI';
+        ctx.font = `bold 30px ${CANVAS_FONT_FAMILY}`;
         const badgeWidth = ctx.measureText(theme.badge || 'CS').width;
         ctx.fillText(theme.badge || 'CS', 130 - badgeWidth / 2, 149);
       }
 
       ctx.fillStyle = 'rgba(255,255,255,0.9)';
-      ctx.font = '700 30px Microsoft YaHei UI';
+      ctx.font = `700 30px ${CANVAS_FONT_FAMILY}`;
       ctx.fillText('你的主队结果', 196, 132);
 
       ctx.save();
@@ -1502,7 +1625,7 @@
       ctx.shadowColor = 'rgba(0,0,0,0.35)';
       ctx.shadowBlur = 18;
       ctx.shadowOffsetY = 5;
-      ctx.font = '900 88px Arial Black';
+      ctx.font = `900 88px ${CANVAS_HEAVY_FONT_FAMILY}`;
       ctx.fillText(snapshot.teamLabel, 82, 278);
       ctx.restore();
 
@@ -1511,11 +1634,11 @@
       const descriptionLineHeight = 44;
       const taglineStartY = 330;
 
-      ctx.font = '700 32px Microsoft YaHei UI';
+      ctx.font = `700 32px ${CANVAS_FONT_FAMILY}`;
       const taglineLines = getWrappedLines(ctx, theme.tagline || '你的观赛气质已经有了非常鲜明的方向。', heroTextWidth);
       const taglineBlockHeight = Math.max(1, taglineLines.length) * taglineLineHeight;
 
-      ctx.font = '30px Microsoft YaHei UI';
+      ctx.font = `30px ${CANVAS_FONT_FAMILY}`;
       const descriptionLines = getWrappedLines(ctx, snapshot.description, heroTextWidth);
       const descriptionBlockHeight = Math.max(1, descriptionLines.length) * descriptionLineHeight;
 
@@ -1523,13 +1646,13 @@
       const descriptionStartY = taglineStartY + taglineBlockHeight + heroSectionGap;
 
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
-      ctx.font = '700 32px Microsoft YaHei UI';
+      ctx.font = `700 32px ${CANVAS_FONT_FAMILY}`;
       taglineLines.forEach((line, index) => {
         ctx.fillText(line, 82, taglineStartY + index * taglineLineHeight);
       });
 
       ctx.fillStyle = '#ffffff';
-      ctx.font = '30px Microsoft YaHei UI';
+      ctx.font = `30px ${CANVAS_FONT_FAMILY}`;
       descriptionLines.forEach((line, index) => {
         ctx.fillText(line, 82, descriptionStartY + index * descriptionLineHeight);
       });
@@ -1541,7 +1664,7 @@
       ctx.lineWidth = 1.2;
       ctx.stroke();
       ctx.fillStyle = '#ffffff';
-      ctx.font = '700 25px Microsoft YaHei UI';
+      ctx.font = `700 25px ${CANVAS_FONT_FAMILY}`;
       drawCenteredCanvasText(ctx, `接近度 ${snapshot.percent}%`, heroCardX + heroInnerInset + 124, statPillY + 32);
 
       drawRoundedRectPath(ctx, heroCardX + heroInnerInset + 266, statPillY, 282, 64, 32);
@@ -1551,7 +1674,7 @@
       ctx.lineWidth = 1.2;
       ctx.stroke();
       ctx.fillStyle = '#ffffff';
-      ctx.font = '700 25px Microsoft YaHei UI';
+      ctx.font = `700 25px ${CANVAS_FONT_FAMILY}`;
       drawCenteredCanvasText(ctx, '分享给朋友一起测', heroCardX + heroInnerInset + 266 + 141, statPillY + 32);
 
       const lowerPanelX = 48;
@@ -1570,15 +1693,15 @@
       drawGlassPanel(ctx, lowerPanelSnapshot, lowerPanelX, lowerPanelY, lowerPanelWidth, lowerPanelHeight, 32);
 
       ctx.fillStyle = theme.secondary || '#111827';
-      ctx.font = '900 38px Microsoft YaHei UI';
+      ctx.font = `900 38px ${CANVAS_FONT_FAMILY}`;
       ctx.fillText('其他接近主队', lowerContentX, lowerTitleY);
-      ctx.font = '28px Microsoft YaHei UI';
+      ctx.font = `28px ${CANVAS_FONT_FAMILY}`;
       ctx.fillStyle = '#4b5563';
       snapshot.others.forEach((item, index) => {
         ctx.fillText(`${index + 1}. ${item.label} · ${item.percent}%`, lowerContentX + 2, lowerListStartY + index * 46);
       });
 
-      ctx.font = '18px Microsoft YaHei UI';
+      ctx.font = `18px ${CANVAS_FONT_FAMILY}`;
       const summaryLines = (snapshot.answers?.length
         ? snapshot.answers.slice(0, 7).flatMap(line => getWrappedLines(ctx, `• ${line}`, 620))
         : getWrappedLines(ctx, '• 你的观赛偏好非常鲜明，适合继续深挖主队风格。', 620)
@@ -1588,10 +1711,10 @@
       const summaryStartY = Math.max(1068, summaryBottomY - (summaryLines.length - 1) * summaryLineHeight);
       const summaryTitleY = summaryStartY - 32;
       ctx.fillStyle = uiPrimary;
-      ctx.font = '800 34px Microsoft YaHei UI';
+      ctx.font = `800 34px ${CANVAS_FONT_FAMILY}`;
       ctx.fillText('作答摘要', lowerContentX, summaryTitleY);
       ctx.fillStyle = '#6b7280';
-      ctx.font = '18px Microsoft YaHei UI';
+      ctx.font = `18px ${CANVAS_FONT_FAMILY}`;
       summaryLines.forEach((line, index) => {
         ctx.fillText(line, lowerContentX, summaryStartY + index * summaryLineHeight);
       });
@@ -1611,10 +1734,10 @@
       }
 
       ctx.fillStyle = theme.secondary || '#111827';
-      ctx.font = '700 24px Microsoft YaHei UI';
+      ctx.font = `700 24px ${CANVAS_FONT_FAMILY}`;
       ctx.fillText('扫码参与测试', 790, 998);
       ctx.fillStyle = '#4b5563';
-      ctx.font = '20px Microsoft YaHei UI';
+      ctx.font = `20px ${CANVAS_FONT_FAMILY}`;
       wrapCanvasText(ctx, '我测出来的主队是这支，你也来试试。', 780, 1042, 196, 31);
 
       return await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
@@ -1653,17 +1776,32 @@
 
     async function downloadResultImage() {
       if (!latestResultSnapshot?.teamLabel) return;
-      setActionButtonState('downloadShareButton', true, '正在导出...');
+      const labels = getSaveButtonLabels();
+      setActionButtonState('downloadShareButton', true, labels.busy);
 
       try {
         const blob = await buildShareImage(latestResultSnapshot);
         if (!blob) throw new Error('生成图片失败');
-        downloadBlob(blob, 'cs-team-result.png');
+
+        if (isMobileLayout() && navigator.share) {
+          const file = new File([blob], 'cs-team-result.png', { type: 'image/png' });
+          if (!navigator.canShare || navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'CS 主队测试结果',
+              text: '保存到相册或分享给朋友'
+            });
+          } else {
+            downloadBlob(blob, 'cs-team-result.png');
+          }
+        } else {
+          downloadBlob(blob, 'cs-team-result.png');
+        }
       } catch (error) {
         console.error(error);
-        alert('导出分享图失败，请稍后再试。');
+        alert(labels.error);
       } finally {
-        setActionButtonState('downloadShareButton', false, '导出分享图');
+        setActionButtonState('downloadShareButton', false, labels.idle);
       }
     }
 
@@ -1684,6 +1822,7 @@
     }
 
     function showResult() {
+      document.body.classList.add('result-view');
       calculateScores();
       const userNormalized = normalizeScores();
       let teamMatches = calculateTeamMatches(userNormalized);
@@ -1765,16 +1904,17 @@
         resultsContainer.appendChild(matchCard);
       }
 
+      const saveLabels = getSaveButtonLabels();
       const candidateCard = createNode(`
-        <div class="result-item">
+        <div class="result-item candidate-card">
           <h3 class="result-title">其他接近主队</h3>
           <ul id="candidateList" style="margin:0;padding-left:18px;color:var(--muted);"></ul>
           <div class="share-inline-panel">
             <p class="share-inline-title">分享结果图</p>
-            <p class="share-tip" style="margin:0;">一键复制或导出分享图，别人一眼就能扫二维码来测。</p>
+            <p class="share-tip" style="margin:0;">一键复制或${isMobileLayout() ? '保存图片到相册' : '导出分享图'}，别人一眼就能扫二维码来测。</p>
             <div class="share-inline-actions">
               <button class="button secondary" id="copyShareButton">复制分享图</button>
-              <button class="button" id="downloadShareButton">导出分享图</button>
+              <button class="button" id="downloadShareButton">${saveLabels.idle}</button>
             </div>
           </div>
         </div>
@@ -1863,7 +2003,7 @@
         showRandomPreview();
       });
 
-      progressText.textContent = '完成问卷';
+      progressText.textContent = isMobileLayout() ? '' : '完成问卷';
       progressFill.style.width = '100%';
     }
 
