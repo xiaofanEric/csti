@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
   <title>CS 战队风格偏好测试</title>
   <style>
     :root {
@@ -2051,39 +2048,94 @@
       progressText.textContent = '加载失败';
     }
 
-    function getFreshSurveyUrl() {
-      const separator = window.location.search ? '&' : '?';
-      return `survey.json${separator}v=${Date.now()}`;
+    const SURVEY_CACHE_KEY = 'csti-survey-cache-v1';
+
+    function isValidSurveyPayload(data) {
+      return !!(data && Array.isArray(data.questions) && Array.isArray(data.teams));
+    }
+
+    function computeTextHash(text = '') {
+      let hash = 2166136261;
+      for (let i = 0; i < text.length; i += 1) {
+        hash ^= text.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return `h${(hash >>> 0).toString(16)}`;
+    }
+
+    function getSurveyVersion(rawText, response) {
+      return response.headers.get('ETag')
+        || response.headers.get('Last-Modified')
+        || computeTextHash(rawText);
+    }
+
+    function readCachedSurvey() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(SURVEY_CACHE_KEY) || 'null');
+        return isValidSurveyPayload(cached?.data) ? cached : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeCachedSurvey(data, version) {
+      try {
+        localStorage.setItem(SURVEY_CACHE_KEY, JSON.stringify({ version, data }));
+      } catch {
+        // ignore storage write failures
+      }
+    }
+
+    function resetSurveyState() {
+      currentPhase = 'base';
+      answers = new Array(surveyData.questions.length).fill(null);
+      tiebreakerQuestions = [];
+      tiebreakerAnswers = [];
+      tiebreakerQuestionOrder = [];
+      tiebreakerOptionOrders = [];
+      questionOrder = [];
+      optionOrders = [];
     }
 
     async function loadSurvey() {
+      const cached = readCachedSurvey();
+
+      if (cached) {
+        surveyData = cached.data;
+        resetSurveyState();
+        renderStartScreen();
+      }
+
       try {
-        const response = await fetch(getFreshSurveyUrl(), {
-          cache: 'no-store',
-          headers: {
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            Pragma: 'no-cache'
-          }
-        });
+        const response = await fetch('survey.json', { cache: 'no-cache' });
         if (!response.ok) {
           throw new Error(`${response.status} ${response.statusText}`);
         }
-        surveyData = await response.json();
-        if (!surveyData.questions || !surveyData.teams) {
+
+        const rawText = await response.text();
+        const nextSurvey = JSON.parse(rawText);
+        if (!isValidSurveyPayload(nextSurvey)) {
           throw new Error('survey.json 内容格式不正确。');
         }
-        currentPhase = 'base';
-        answers = new Array(surveyData.questions.length).fill(null);
-        tiebreakerQuestions = [];
-        tiebreakerAnswers = [];
-        tiebreakerQuestionOrder = [];
-        tiebreakerOptionOrders = [];
-        questionOrder = [];
-        optionOrders = [];
-        renderStartScreen();
+
+        const remoteVersion = getSurveyVersion(rawText, response);
+        surveyData = nextSurvey;
+
+        if (!cached || cached.version !== remoteVersion) {
+          writeCachedSurvey(nextSurvey, remoteVersion);
+          if (!hasStarted) {
+            resetSurveyState();
+            renderStartScreen();
+          }
+        } else if (!cached) {
+          resetSurveyState();
+          renderStartScreen();
+        }
       } catch (error) {
         console.error(error);
-        showLoadError(error.message || '未知错误');
+        if (!cached) {
+          showLoadError(error.message || '未知错误');
+        }
       }
     }
 
